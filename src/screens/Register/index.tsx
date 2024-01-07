@@ -5,7 +5,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import AuthForm from '@/components/Shared/AuthForm';
 import {Box, Text} from '@/components/UI';
-import {AuthNavParamList} from '@/navigation/AuthNav';
+import type {AuthNavParamList} from '@/navigation/AuthNav';
 
 import style from './style';
 

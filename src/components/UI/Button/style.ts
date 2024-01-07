@@ -9,7 +9,7 @@ export default StyleSheet.create({
     backgroundColor: colors.buttonBgActive,
     borderRadius: borderRadius.s,
     alignItems: 'center',
-    padding: padding.s,
+    padding: padding.xs,
     marginBottom: margin.s,
   },
   disabled: {

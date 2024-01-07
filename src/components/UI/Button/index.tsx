@@ -1,12 +1,12 @@
 import * as React from 'react';
-import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
+import {GestureResponderEvent, TouchableOpacity, TouchableOpacityProps} from 'react-native';
 
 import style from './style';
 
 type UIButtonProps = {
   children: React.ReactNode;
   variants: 'active' | 'disabled';
-  onPress?: () => void;
+  onPress?: (e: GestureResponderEvent) => void;
 } & TouchableOpacityProps;
 
 export default function Button({children, variants, onPress, ...props}: UIButtonProps) {
