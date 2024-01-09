@@ -1,6 +1,6 @@
 module.exports = {
   arrowParens: 'avoid',
-  printWidth: 130,
+  printWidth: 100,
   tabWidth: 2,
   bracketSameLine: true,
   bracketSpacing: false,

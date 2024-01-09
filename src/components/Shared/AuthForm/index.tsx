@@ -17,11 +17,23 @@ type AuthFormProps = {
   navigation?: NativeStackNavigationProp<AppNavParmamList, 'Login' | 'Register'>;
   useFor: 'Login' | 'Register';
   onPress: () => void;
-  onChangeLogin?: (e: NativeSyntheticEvent<TextInputChangeEventData>, key: keyof LoginPayload) => void;
-  onChangeRegister?: (e: NativeSyntheticEvent<TextInputChangeEventData>, key: keyof RegisterPayload) => void;
+  onChangeLogin?: (
+    e: NativeSyntheticEvent<TextInputChangeEventData>,
+    key: keyof LoginPayload,
+  ) => void;
+  onChangeRegister?: (
+    e: NativeSyntheticEvent<TextInputChangeEventData>,
+    key: keyof RegisterPayload,
+  ) => void;
 };
 
-export default function AuthForm({navigation, onChangeLogin, onChangeRegister, onPress, useFor}: AuthFormProps) {
+export default function AuthForm({
+  navigation,
+  onChangeLogin,
+  onChangeRegister,
+  onPress,
+  useFor,
+}: AuthFormProps) {
   // const [registerForm, setRegisterForm] = React.useState<RegisterFormState>({
   //   email: '',
   //   first_name: '',
@@ -84,37 +96,51 @@ export default function AuthForm({navigation, onChangeLogin, onChangeRegister, o
         <React.Fragment>
           <TextInput
             placeholder="masukkan email anda"
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeLogin!(e, 'email')}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              onChangeLogin!(e, 'email')
+            }
           />
           <TextInput
             secureTextEntry={true}
             placeholder="masukkan password anda"
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeLogin!(e, 'password')}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              onChangeLogin!(e, 'password')
+            }
           />
         </React.Fragment>
       ) : (
         <React.Fragment>
           <TextInput
             placeholder="masukkan email anda"
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeRegister!(e, 'email')}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              onChangeRegister!(e, 'email')
+            }
           />
           <TextInput
             placeholder="nama depan"
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeRegister!(e, 'first_name')}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              onChangeRegister!(e, 'first_name')
+            }
           />
           <TextInput
             placeholder="name belakang"
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeRegister!(e, 'last_name')}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              onChangeRegister!(e, 'last_name')
+            }
           />
           <TextInput
             secureTextEntry={true}
             placeholder="buat password"
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeRegister!(e, 'password')}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              onChangeRegister!(e, 'password')
+            }
           />
           <TextInput
             secureTextEntry={true}
             placeholder="konfirmasi password"
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeRegister!(e, 'confirmPassword')}
+            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+              onChangeRegister!(e, 'confirmPassword')
+            }
           />
         </React.Fragment>
       )}
@@ -124,7 +150,10 @@ export default function AuthForm({navigation, onChangeLogin, onChangeRegister, o
       <Box variants="flexRow">
         <Text variants="base">
           {useFor === 'Login' ? 'belum punya akun? registrasi ' : 'sudah punya akun? login '}
-          <Text onPress={navigateToRegisterOrLoginScreen} variants="base" style={[style.navigation]}>
+          <Text
+            onPress={navigateToRegisterOrLoginScreen}
+            variants="base"
+            style={[style.navigation]}>
             di sini
           </Text>
         </Text>

@@ -5,15 +5,20 @@ import instance from '@/lib/axios';
 import {removeStorage, setStorage} from '@/lib/storage';
 import {
   login as loginService,
-  type ProfileData,
   profile as profileService,
   profileUpdateImage as profileUpdateImageService,
   profileUpdate as profileUpdateService,
   register as registerService,
 } from '@/services';
-import type {LoginPayload, ProfileUpdateImagePayload, ProfileUpdatePayload, RegisterPayload} from '@/types';
+import type {
+  LoginPayload,
+  ProfileData,
+  ProfileUpdateImagePayload,
+  ProfileUpdatePayload,
+  RegisterPayload,
+} from '@/types';
 
-type AuthState = {
+export type AuthState = {
   profile: ProfileData | null;
   token: string;
   isError: string;
@@ -65,25 +70,31 @@ export const profile = createAsyncThunk('auth/profile', async () => {
   }
 });
 
-export const profileUpdate = createAsyncThunk('auth/profile/update', async (payload: ProfileUpdatePayload) => {
-  try {
-    const {data} = await profileUpdateService(payload);
-    return data;
-  } catch (error) {
-    const err = error as AxiosError;
-    throw new Error(err.message);
-  }
-});
+export const profileUpdate = createAsyncThunk(
+  'auth/profile/update',
+  async (payload: ProfileUpdatePayload) => {
+    try {
+      const {data} = await profileUpdateService(payload);
+      return data;
+    } catch (error) {
+      const err = error as AxiosError;
+      throw new Error(err.message);
+    }
+  },
+);
 
-export const profileUpdateImage = createAsyncThunk('auth/profile/image', async (payload: ProfileUpdateImagePayload) => {
-  try {
-    const {data} = await profileUpdateImageService(payload);
-    return data;
-  } catch (error) {
-    const err = error as AxiosError;
-    throw new Error(err.message);
-  }
-});
+export const profileUpdateImage = createAsyncThunk(
+  'auth/profile/image',
+  async (payload: ProfileUpdateImagePayload) => {
+    try {
+      const {data} = await profileUpdateImageService(payload);
+      return data;
+    } catch (error) {
+      const err = error as AxiosError;
+      throw new Error(err.message);
+    }
+  },
+);
 
 const authSlice = createSlice({
   name: 'auth',

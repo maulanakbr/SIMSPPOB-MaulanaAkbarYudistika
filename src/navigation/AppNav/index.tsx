@@ -59,7 +59,9 @@ export default function AppNav({navigation}: AppNavProps) {
           // ),
           headerShown: true,
           headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{flexDirection: 'row', alignItems: 'center'}}>
               <IconButton icon={'arrow-left'} />
               <Text style={{fontSize: sizes.fontSize.s, color: colors.textPrimary}}>kembali</Text>
             </TouchableOpacity>
@@ -82,7 +84,9 @@ export default function AppNav({navigation}: AppNavProps) {
           // tabBarIcon: ({color, focused}) => <FontAwesome name={focused ? 'inbox' : 'inbox'} color={color} size={24} />,
           headerShown: true,
           headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{flexDirection: 'row', alignItems: 'center'}}>
               <IconButton icon={'arrow-left'} />
               <Text style={{fontSize: sizes.fontSize.s, color: colors.textPrimary}}>kembali</Text>
             </TouchableOpacity>

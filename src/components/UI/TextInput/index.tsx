@@ -8,6 +8,17 @@ export type UITextInputProps = {
   secureTextEntry?: boolean;
 } & TextInputProps;
 
-export default function TextInput({placeholder, secureTextEntry = false, ...props}: UITextInputProps) {
-  return <RNTextInput placeholder={placeholder} secureTextEntry={secureTextEntry} style={style.main} {...props} />;
+export default function TextInput({
+  placeholder,
+  secureTextEntry = false,
+  ...props
+}: UITextInputProps) {
+  return (
+    <RNTextInput
+      placeholder={placeholder}
+      secureTextEntry={secureTextEntry}
+      style={style.main}
+      {...props}
+    />
+  );
 }

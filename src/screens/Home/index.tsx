@@ -6,6 +6,7 @@ import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {profile} from '@/app';
 import {Box, Text} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
+import useRender from '@/hooks/useRender';
 import {AppNavParamList} from '@/navigation/AppNav';
 
 import style from './style';
@@ -13,15 +14,9 @@ import style from './style';
 export type HomeScreenProps = BottomTabNavigationProp<AppNavParamList, 'Home'>;
 
 function HomeScreen() {
-  const dispatch = useAppDispatch();
+  const {profile: data} = useAppSelector(state => state.auth);
 
-  const {profile: profileData} = useAppSelector(state => state.auth);
-
-  React.useEffect(() => {
-    dispatch(profile());
-  }, []);
-
-  console.log(profileData);
+  useRender({callback: profile()});
 
   return (
     <React.Fragment>
@@ -36,7 +31,7 @@ function HomeScreen() {
         </Box>
         {/* Header Greet */}
         <View>
-          <Text variants="base">{profileData?.email}</Text>
+          <Text variants="base">{data?.email}</Text>
         </View>
       </Box>
     </React.Fragment>

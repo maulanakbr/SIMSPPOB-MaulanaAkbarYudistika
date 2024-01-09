@@ -28,7 +28,10 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
   const dispatch = useAppDispatch();
   const {isLoading, isError, token} = useAppSelector(state => state.auth);
 
-  const handleChangeForm = (e: NativeSyntheticEvent<TextInputChangeEventData>, key: keyof LoginPayload) => {
+  const handleChangeForm = (
+    e: NativeSyntheticEvent<TextInputChangeEventData>,
+    key: keyof LoginPayload,
+  ) => {
     setLoginForm(prevState => ({
       ...prevState,
       [key]: e.nativeEvent.text,
@@ -40,7 +43,6 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
 
     dispatch(login({email, password})).then(item => {
       if ((item.meta.requestStatus = 'fulfilled')) {
-        console.log(token);
         navigation.replace('Main');
       }
     });
@@ -49,8 +51,6 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
   if (isLoading) {
     return <Text variants="active">Loading!</Text>;
   }
-
-  console.log(isError);
 
   return (
     <Box variants="container">
