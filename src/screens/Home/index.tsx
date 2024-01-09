@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {Image, View} from 'react-native';
+import {FlatList, Image, View} from 'react-native';
 
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
-import {profile} from '@/app';
+import {banner, profile, service} from '@/app';
 import {Box, Text} from '@/components/UI';
-import {useAppSelector, useRender} from '@/hooks';
+import {useAppDispatch, useAppSelector, useRender} from '@/hooks';
 import {AppNavParamList} from '@/navigation/AppNav';
 
 import style from './style';
@@ -13,9 +13,20 @@ import style from './style';
 export type HomeScreenProps = BottomTabNavigationProp<AppNavParamList, 'Home'>;
 
 function HomeScreen() {
-  const {profile: data, isSuccess} = useAppSelector(state => state.membership);
+  // const dispatch = useAppDispatch();
+
+  const {profile: profileData} = useAppSelector(state => state.membership);
+  const {banners: bannersData, services: servicesData} = useAppSelector(state => state.information);
 
   useRender({callback: profile()});
+  useRender({callback: banner()});
+  useRender({callback: service()});
+
+  // React.useEffect(() => {
+  //   dispatch(banner());
+  //   dispatch(profile());
+  //   dispatch(service());
+  // }, []);
 
   return (
     <React.Fragment>
@@ -29,8 +40,18 @@ function HomeScreen() {
           <Image source={require('@/assets/Profile-Photo.png')} style={style.avatar} />
         </Box>
         {/* Header Greet */}
-        <View>
-          <Text variants="base">{data?.email}</Text>
+        <View style={{flex: 1}}>
+          <Text variants="base">{profileData?.email}</Text>
+          {bannersData?.map((item, index) => (
+            <Text key={index} variants="base">
+              {item.banner_name}
+            </Text>
+          ))}
+          {servicesData?.map((item, index) => (
+            <Text key={index} variants="base">
+              {item.service_name}
+            </Text>
+          ))}
         </View>
       </Box>
     </React.Fragment>

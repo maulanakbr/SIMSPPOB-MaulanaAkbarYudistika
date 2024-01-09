@@ -1,6 +1,6 @@
 import {AxiosResponse} from 'axios';
 
-import instance from '@/lib/axios';
+import {instance} from '@/lib';
 import type {
   BaseHttpResponse,
   LoginPayload,

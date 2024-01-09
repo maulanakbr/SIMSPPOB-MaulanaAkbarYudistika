@@ -1,8 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import type {AxiosError} from 'axios';
 
-import instance from '@/lib/axios';
-import {removeStorage, setStorage} from '@/lib/storage';
+import {instance, removeStorage, setStorage} from '@/lib';
 import {
   login as loginService,
   profile as profileService,
@@ -11,6 +10,7 @@ import {
   register as registerService,
 } from '@/services';
 import type {
+  BaseSliceState,
   LoginPayload,
   ProfileData,
   ProfileUpdateImagePayload,
@@ -21,10 +21,7 @@ import type {
 export type MembershipState = {
   profile: ProfileData | null;
   token: string;
-  isError: string;
-  isLoading: boolean;
-  isSuccess: boolean;
-};
+} & BaseSliceState;
 
 const initialState: MembershipState = {
   profile: null,
@@ -113,7 +110,7 @@ const membershipSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(login.pending, (state, action) => {
+      .addCase(login.pending, state => {
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {

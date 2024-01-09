@@ -1,7 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {combineReducers, configureStore, ThunkDispatch, UnknownAction} from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  type ThunkDispatch,
+  type UnknownAction,
+} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
 
+import {informationReducer} from './slices/information';
 import {membershipReducer} from './slices/membership';
 
 const persistConfig = {
@@ -12,6 +18,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   membership: membershipReducer,
+  information: informationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
