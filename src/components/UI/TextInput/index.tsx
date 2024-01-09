@@ -8,8 +8,6 @@ export type UITextInputProps = {
   secureTextEntry?: boolean;
 } & TextInputProps;
 
-const TextInput = React.forwardRef<RNTextInput, UITextInputProps>(({placeholder, secureTextEntry = false, ...props}, ref) => {
-  return <RNTextInput ref={ref} placeholder={placeholder} secureTextEntry={secureTextEntry} style={style.main} {...props} />;
-});
-
-export default TextInput;
+export default function TextInput({placeholder, secureTextEntry = false, ...props}: UITextInputProps) {
+  return <RNTextInput placeholder={placeholder} secureTextEntry={secureTextEntry} style={style.main} {...props} />;
+}

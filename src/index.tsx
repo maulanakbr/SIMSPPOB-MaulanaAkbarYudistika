@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import {NavigationContainer} from '@react-navigation/native';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 
-import {AppNav, AuthNav} from '@/navigation';
-import {store} from '@/store';
+import {persistor, store} from '@/app/store';
+import {MainContainer} from '@/navigation';
 
 function App() {
-  const isAuth = false;
-
   return (
     <Provider store={store}>
-      <NavigationContainer>{isAuth ? <AppNav /> : <AuthNav />}</NavigationContainer>
+      <PersistGate persistor={persistor}>
+        <MainContainer />
+      </PersistGate>
     </Provider>
   );
 }

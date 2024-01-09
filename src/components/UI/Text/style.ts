@@ -20,9 +20,9 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   base: {
-    color: colors.textTertiary,
-    fontSize: fontSize.xs,
-    fontWeight: fontWeight.m,
+    color: colors.textPrimary,
+    fontSize: fontSize.s,
+    fontWeight: fontWeight.l,
     textAlign: 'center',
   },
   textButtonActive: {

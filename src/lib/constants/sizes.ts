@@ -25,6 +25,7 @@ const fontWeight = {
 const height = {
   xs: 35,
   s: 50,
+  m: 60,
 };
 
 const padding = {
