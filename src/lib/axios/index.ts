@@ -14,7 +14,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   config => {
-    const {token} = store.getState().auth;
+    const {token} = store.getState().membership;
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

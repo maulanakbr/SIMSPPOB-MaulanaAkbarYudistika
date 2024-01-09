@@ -4,7 +4,7 @@ import {Image, type NativeSyntheticEvent, type TextInputChangeEventData} from 'r
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 
 import {login} from '@/app';
-import AuthForm from '@/components/Shared/AuthForm';
+import {MembershipForm} from '@/components/Shared';
 import {Box, Text} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import {LoginPayload} from '@/types';
@@ -26,7 +26,7 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
   });
 
   const dispatch = useAppDispatch();
-  const {isLoading, isError, token} = useAppSelector(state => state.auth);
+  const {isLoading, isError, token} = useAppSelector(state => state.membership);
 
   const handleChangeForm = (
     e: NativeSyntheticEvent<TextInputChangeEventData>,
@@ -59,7 +59,7 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
         <Text variants="subheader">SIMS PPOB</Text>
       </Box>
       <Text variants="header">Masuk atau buat akun untuk memulai</Text>
-      <AuthForm useFor="Login" onPress={handleLogin} onChangeLogin={handleChangeForm} />
+      <MembershipForm useFor="Login" onPress={handleLogin} onChangeLogin={handleChangeForm} />
     </Box>
   );
 }

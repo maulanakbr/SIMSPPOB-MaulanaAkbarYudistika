@@ -5,8 +5,7 @@ import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
 import {profile} from '@/app';
 import {Box, Text} from '@/components/UI';
-import {useAppDispatch, useAppSelector} from '@/hooks';
-import useRender from '@/hooks/useRender';
+import {useAppSelector, useRender} from '@/hooks';
 import {AppNavParamList} from '@/navigation/AppNav';
 
 import style from './style';
@@ -14,7 +13,7 @@ import style from './style';
 export type HomeScreenProps = BottomTabNavigationProp<AppNavParamList, 'Home'>;
 
 function HomeScreen() {
-  const {profile: data} = useAppSelector(state => state.auth);
+  const {profile: data, isSuccess} = useAppSelector(state => state.membership);
 
   useRender({callback: profile()});
 

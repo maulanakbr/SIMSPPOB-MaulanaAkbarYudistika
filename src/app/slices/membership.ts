@@ -18,7 +18,7 @@ import type {
   RegisterPayload,
 } from '@/types';
 
-export type AuthState = {
+export type MembershipState = {
   profile: ProfileData | null;
   token: string;
   isError: string;
@@ -26,7 +26,7 @@ export type AuthState = {
   isSuccess: boolean;
 };
 
-const initialState: AuthState = {
+const initialState: MembershipState = {
   profile: null,
   token: '',
   isError: '',
@@ -34,7 +34,7 @@ const initialState: AuthState = {
   isSuccess: false,
 };
 
-export const login = createAsyncThunk('auth/login', async (payload: LoginPayload) => {
+export const login = createAsyncThunk('membership/login', async (payload: LoginPayload) => {
   try {
     const {data} = await loginService(payload);
     const token = data.data?.token;
@@ -50,17 +50,20 @@ export const login = createAsyncThunk('auth/login', async (payload: LoginPayload
   }
 });
 
-export const register = createAsyncThunk('auth/register', async (payload: RegisterPayload) => {
-  try {
-    const {data} = await registerService(payload);
-    return data.message;
-  } catch (error) {
-    const err = error as AxiosError;
-    throw new Error(err.message);
-  }
-});
+export const register = createAsyncThunk(
+  'membership/register',
+  async (payload: RegisterPayload) => {
+    try {
+      const {data} = await registerService(payload);
+      return data.message;
+    } catch (error) {
+      const err = error as AxiosError;
+      throw new Error(err.message);
+    }
+  },
+);
 
-export const profile = createAsyncThunk('auth/profile', async () => {
+export const profile = createAsyncThunk('membership/profile', async () => {
   try {
     const {data} = await profileService();
     return data;
@@ -71,7 +74,7 @@ export const profile = createAsyncThunk('auth/profile', async () => {
 });
 
 export const profileUpdate = createAsyncThunk(
-  'auth/profile/update',
+  'membership/profile/update',
   async (payload: ProfileUpdatePayload) => {
     try {
       const {data} = await profileUpdateService(payload);
@@ -84,7 +87,7 @@ export const profileUpdate = createAsyncThunk(
 );
 
 export const profileUpdateImage = createAsyncThunk(
-  'auth/profile/image',
+  'membership/profile/image',
   async (payload: ProfileUpdateImagePayload) => {
     try {
       const {data} = await profileUpdateImageService(payload);
@@ -96,8 +99,8 @@ export const profileUpdateImage = createAsyncThunk(
   },
 );
 
-const authSlice = createSlice({
-  name: 'auth',
+const membershipSlice = createSlice({
+  name: 'membership',
   initialState,
   reducers: {
     setToken(state, action) {
@@ -177,5 +180,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {setToken, signOut} = authSlice.actions;
-export const authReducer = authSlice.reducer;
+export const {setToken, signOut} = membershipSlice.actions;
+export const membershipReducer = membershipSlice.reducer;

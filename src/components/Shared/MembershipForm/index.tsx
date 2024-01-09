@@ -13,7 +13,7 @@ type AppNavParmamList = {
   Register: undefined;
 };
 
-type AuthFormProps = {
+type MembershipFormProps = {
   navigation?: NativeStackNavigationProp<AppNavParmamList, 'Login' | 'Register'>;
   useFor: 'Login' | 'Register';
   onPress: () => void;
@@ -27,13 +27,13 @@ type AuthFormProps = {
   ) => void;
 };
 
-export default function AuthForm({
+export default function MembershipForm({
   navigation,
   onChangeLogin,
   onChangeRegister,
   onPress,
   useFor,
-}: AuthFormProps) {
+}: MembershipFormProps) {
   // const [registerForm, setRegisterForm] = React.useState<RegisterFormState>({
   //   email: '',
   //   first_name: '',
