@@ -44,9 +44,9 @@ export default function AppNav({navigation}: AppNavProps) {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({color, focused}) => (
-            <Icon name={focused ? 'home' : 'home-outline'} color={color} size={sizes.fontSize.m} />
-          ),
+          // tabBarIcon: ({color, focused}) => (
+          //   <Icon name={focused ? 'home' : 'home-outline'} color={color} size={sizes.fontSize.m} />
+          // ),
         }}
       />
       <Tab.Screen
@@ -54,9 +54,9 @@ export default function AppNav({navigation}: AppNavProps) {
         component={TopUpScreen}
         options={{
           tabBarLabel: 'Top Up',
-          tabBarIcon: ({color, focused}) => (
-            <MaterialIcons name={focused ? 'money' : 'money'} color={color} size={sizes.fontSize.m} />
-          ),
+          // tabBarIcon: ({color, focused}) => (
+          //   <MaterialIcons name={focused ? 'money' : 'money'} color={color} size={sizes.fontSize.m} />
+          // ),
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()} style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -79,7 +79,7 @@ export default function AppNav({navigation}: AppNavProps) {
         component={TransactionScreen}
         options={{
           tabBarLabel: 'Transaction',
-          tabBarIcon: ({color, focused}) => <FontAwesome name={focused ? 'inbox' : 'inbox'} color={color} size={24} />,
+          // tabBarIcon: ({color, focused}) => <FontAwesome name={focused ? 'inbox' : 'inbox'} color={color} size={24} />,
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.goBack()} style={{flexDirection: 'row', alignItems: 'center'}}>

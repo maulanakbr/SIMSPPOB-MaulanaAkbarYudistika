@@ -5,7 +5,7 @@ import instance from '@/lib/axios';
 import {removeStorage, setStorage} from '@/lib/storage';
 import {
   login as loginService,
-  type ProfileResponse,
+  type ProfileData,
   profile as profileService,
   profileUpdateImage as profileUpdateImageService,
   profileUpdate as profileUpdateService,
@@ -14,7 +14,7 @@ import {
 import type {LoginPayload, ProfileUpdateImagePayload, ProfileUpdatePayload, RegisterPayload} from '@/types';
 
 type AuthState = {
-  profile: Pick<ProfileResponse, 'data'> | null;
+  profile: ProfileData | null;
   token: string;
   isError: string;
   isLoading: boolean;
@@ -58,7 +58,7 @@ export const register = createAsyncThunk('auth/register', async (payload: Regist
 export const profile = createAsyncThunk('auth/profile', async () => {
   try {
     const {data} = await profileService();
-    return {data};
+    return data;
   } catch (error) {
     const err = error as AxiosError;
     throw new Error(err.message);
@@ -68,7 +68,7 @@ export const profile = createAsyncThunk('auth/profile', async () => {
 export const profileUpdate = createAsyncThunk('auth/profile/update', async (payload: ProfileUpdatePayload) => {
   try {
     const {data} = await profileUpdateService(payload);
-    return {data};
+    return data;
   } catch (error) {
     const err = error as AxiosError;
     throw new Error(err.message);
@@ -78,7 +78,7 @@ export const profileUpdate = createAsyncThunk('auth/profile/update', async (payl
 export const profileUpdateImage = createAsyncThunk('auth/profile/image', async (payload: ProfileUpdateImagePayload) => {
   try {
     const {data} = await profileUpdateImageService(payload);
-    return {data};
+    return data;
   } catch (error) {
     const err = error as AxiosError;
     throw new Error(err.message);
@@ -99,7 +99,7 @@ const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(login.pending, state => {
+      .addCase(login.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
@@ -167,5 +167,4 @@ const authSlice = createSlice({
 });
 
 export const {setToken, signOut} = authSlice.actions;
-
-export default authSlice.reducer;
+export const authReducer = authSlice.reducer;

@@ -13,13 +13,15 @@ type RegisterResponse = {
   data: null;
 } & BaseHttpResponse;
 
-export type ProfileResponse = {
-  data: {
-    email: string;
-    first_name: string;
-    last_name: string;
-    profile_image: string;
-  } | null;
+export type ProfileData = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  profile_image: string;
+};
+
+type ProfileResponse = {
+  data: ProfileData | null;
 } & BaseHttpResponse;
 
 export const login = async (payload: LoginPayload): Promise<AxiosResponse<LoginResponse>> => {
