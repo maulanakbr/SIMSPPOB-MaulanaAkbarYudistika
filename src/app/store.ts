@@ -7,8 +7,11 @@ import {
 } from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
 
-import {informationReducer} from './slices/information';
-import {membershipReducer} from './slices/membership';
+import {
+  informationReducer as information,
+  membershipReducer as membership,
+  transactionReducer as transaction,
+} from './slices';
 
 const persistConfig = {
   key: 'root',
@@ -17,8 +20,9 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  membership: membershipReducer,
-  information: informationReducer,
+  information,
+  membership,
+  transaction,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

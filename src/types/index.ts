@@ -6,6 +6,7 @@ import {
   ProfileUpdatePayload,
   RegisterPayload,
   TopUpPayload,
+  TransactionPayload,
 } from '@/lib';
 
 export type BasicNavigator = Record<string, undefined>;
@@ -26,7 +27,7 @@ export type RegisterPayload = z.infer<typeof RegisterPayload>;
 export type ProfileUpdatePayload = z.infer<typeof ProfileUpdatePayload>;
 export type ProfileUpdateImagePayload = z.infer<typeof ProfileUpdateImagePayload>;
 export type TopUpPayload = z.infer<typeof TopUpPayload>;
-
+export type TransactionPayload = z.infer<typeof TransactionPayload>;
 export type ProfileData = {
   email: string;
   first_name: string;
@@ -64,3 +65,16 @@ export type ServiceData = {
 export type BalanceData = {
   balance: number;
 };
+
+export type TransactionType = 'TOPUP' | 'PAYMENT';
+
+export type TransactionData = {
+  invoice_number: string;
+  transaction_type: TransactionType;
+  total_amount: number;
+  created_on: string;
+} & Pick<ServiceData, 'service_code' | 'service_name'>;
+
+export type TransactionHistoryData = {
+  description: string;
+} & Omit<TransactionData, 'service_code' | 'service_name'>;
