@@ -5,11 +5,15 @@ import {colors, sizes} from '@/lib/constants';
 const {height, width} = sizes;
 
 export default StyleSheet.create({
-  imgLogo: {
-    height: height.xs,
-    width: width.xs,
+  inputStacksContainer: {
+    gap: 20,
   },
-  navigation: {
-    color: colors.primary,
+  formContainer: {
+    gap: 40,
+  },
+  footerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

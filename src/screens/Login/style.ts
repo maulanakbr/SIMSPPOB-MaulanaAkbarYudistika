@@ -2,14 +2,19 @@ import {StyleSheet} from 'react-native';
 
 import {colors, sizes} from '@/lib/constants';
 
-const {height, width} = sizes;
-
 export default StyleSheet.create({
-  imgLogo: {
-    height: height.xs,
-    width: width.xs,
+  mainContainer: {
+    backgroundColor: colors.bg,
+    flex: 1,
+    gap: 50,
+    justifyContent: 'center',
+    padding: 20,
   },
-  navigation: {
-    color: colors.primary,
+  headlineContainer: {
+    alignItems: 'center',
+  },
+  headlineText: {
+    fontWeight: '700',
+    textAlign: 'center',
   },
 });

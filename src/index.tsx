@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import {PaperProvider} from 'react-native-paper';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -10,7 +11,9 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <MainContainer />
+        <PaperProvider>
+          <MainContainer />
+        </PaperProvider>
       </PersistGate>
     </Provider>
   );

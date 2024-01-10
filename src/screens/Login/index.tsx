@@ -1,11 +1,17 @@
 import * as React from 'react';
-import {Image, type NativeSyntheticEvent, type TextInputChangeEventData} from 'react-native';
+import {
+  Keyboard,
+  type NativeSyntheticEvent,
+  type TextInputChangeEventData,
+  View,
+} from 'react-native';
 
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
+import {Text} from 'react-native-paper';
 
 import {login} from '@/app';
 import {MembershipForm} from '@/components/Shared';
-import {Box, Text} from '@/components/UI';
+import Brands from '@/components/UI/Brands';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import {LoginPayload} from '@/types';
 
@@ -41,6 +47,8 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
   const handleLogin = () => {
     const {email, password} = loginForm;
 
+    Keyboard.dismiss();
+
     dispatch(login({email, password})).then(item => {
       if ((item.meta.requestStatus = 'fulfilled')) {
         navigation.replace('Main');
@@ -48,18 +56,20 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
     });
   };
 
-  if (isLoading) {
-    return <Text variants="active">Loading!</Text>;
-  }
-
   return (
-    <Box variants="container">
-      <Box variants="flexRow">
-        <Image source={require('@/assets/Logo.png')} style={style.imgLogo} />
-        <Text variants="subheader">SIMS PPOB</Text>
-      </Box>
-      <Text variants="header">Masuk atau buat akun untuk memulai</Text>
-      <MembershipForm useFor="Login" onPress={handleLogin} onChangeLogin={handleChangeForm} />
-    </Box>
+    <View style={style.mainContainer}>
+      <Brands />
+      <View style={style.headlineContainer}>
+        <Text variant="headlineLarge" style={style.headlineText}>
+          Masuk atau buat akun untuk memulai
+        </Text>
+      </View>
+      <MembershipForm
+        isLoading={isLoading}
+        onChangeLogin={handleChangeForm}
+        onPress={handleLogin}
+        useFor="Login"
+      />
+    </View>
   );
 }
