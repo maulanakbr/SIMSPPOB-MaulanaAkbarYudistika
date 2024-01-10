@@ -19,15 +19,17 @@ import type {
 } from '@/types';
 
 export type MembershipState = {
+  isLoggedIn: boolean;
   profile: ProfileData | null;
-  token: string;
+  token: string | null;
 } & BaseSliceState;
 
 const initialState: MembershipState = {
   profile: null,
-  token: '',
+  token: null,
   isError: '',
   isLoading: false,
+  isLoggedIn: false,
   isSuccess: false,
 };
 
@@ -104,6 +106,7 @@ const membershipSlice = createSlice({
       state.token = action.payload;
     },
     signOut(state) {
+      state.isLoggedIn = false;
       state.token = '';
       removeStorage({key: 'token'});
     },
@@ -115,6 +118,7 @@ const membershipSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = true;
         state.isSuccess = true;
         state.token = action.payload || '';
       })

@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
 
+import theme from '@/theme';
+
 export default StyleSheet.create({
   brandsLogoContainerLarger: {
     alignItems: 'center',
@@ -8,12 +10,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   brandsLogoIconLarger: {
-    height: 40,
-    width: 40,
+    height: theme.sizes.mHeight,
+    width: theme.sizes.mWidth,
   },
   brandsLogoIconSmaller: {
-    height: 40 / 2,
-    width: 40 / 2,
+    height: theme.sizes.sHeight,
+    width: theme.sizes.sWidth,
   },
   brandsLogoText: {
     fontWeight: 'bold',

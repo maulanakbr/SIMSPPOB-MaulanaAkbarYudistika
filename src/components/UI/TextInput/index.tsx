@@ -1,15 +1,11 @@
 import * as React from 'react';
 
-// import {TextInput as RNTextInput, TextInputProps} from 'react-native';
-import {TextInput as RNPTextInput, TextInputProps} from 'react-native-paper';
+import {TextInput as RNPTextInput, TextInputProps, useTheme} from 'react-native-paper';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 
-import style from './style';
+import theme from '@/theme';
 
-// export type UITextInputProps = {
-//   placeholder?: string;
-//   secureTextEntry?: boolean;
-// } & TextInputProps;
+import style from './style';
 
 export type UITextInputProps = {
   icon: IconSource;
@@ -17,19 +13,15 @@ export type UITextInputProps = {
 } & TextInputProps;
 
 export default function TextInput({placeholder, icon, ...props}: UITextInputProps) {
+  const {colors} = useTheme<typeof theme>();
+
   return (
-    // <RNTextInput
-    //   placeholder={placeholder}
-    //   secureTextEntry={secureTextEntry}
-    //   style={style.main}
-    //   {...props}
-    // />
     <RNPTextInput
       mode="outlined"
       left={<RNPTextInput.Icon icon={icon} size={20} />}
       placeholder={placeholder}
       outlineStyle={style.textInputOutline}
-      placeholderTextColor="#CDCBCB"
+      placeholderTextColor={colors.textTertiary}
       {...props}
     />
   );

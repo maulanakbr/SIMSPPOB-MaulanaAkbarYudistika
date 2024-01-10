@@ -6,12 +6,13 @@ import {PersistGate} from 'redux-persist/integration/react';
 
 import {persistor, store} from '@/app/store';
 import {MainContainer} from '@/navigation';
+import theme from '@/theme';
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <PaperProvider>
+        <PaperProvider theme={theme}>
           <MainContainer />
         </PaperProvider>
       </PersistGate>

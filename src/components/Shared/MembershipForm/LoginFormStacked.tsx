@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {type NativeSyntheticEvent, type TextInputChangeEventData, View} from 'react-native';
 
+import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 
 import {TextInput} from '@/components/UI';
+import theme from '@/theme';
 
 import style from './style';
 
@@ -12,15 +14,17 @@ import type {SharedMembershipFormProps} from '.';
 export default function LoginFormStacked({
   onChangeLogin,
 }: Pick<SharedMembershipFormProps, 'onChangeLogin'>) {
+  const {colors} = useTheme<typeof theme>();
+
   return (
     <View style={style.inputStacksContainer}>
       <TextInput
-        icon={() => <Icon name="at-sign" color="#CDCBCB" size={20} />}
+        icon={() => <Icon name="at-sign" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeLogin!(e, 'email')}
         placeholder="masukkan email anda"
       />
       <TextInput
-        icon={() => <Icon name="lock" color="#CDCBCB" size={20} />}
+        icon={() => <Icon name="lock" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
           onChangeLogin!(e, 'password')
         }

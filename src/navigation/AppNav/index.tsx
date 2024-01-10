@@ -18,7 +18,7 @@ export type AppNavParamList = {
 };
 
 type AppNavProps = {
-  navigation: BottomTabNavigationProp<AppNavParamList>;
+  navigation?: BottomTabNavigationProp<AppNavParamList, 'Home' | 'TopUp' | 'Transaction' | 'Akun'>;
 };
 
 const Tab = createBottomTabNavigator<AppNavParamList>();
@@ -60,7 +60,7 @@ export default function AppNav({navigation}: AppNavProps) {
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity
-              onPress={() => navigation.goBack()}
+              onPress={() => navigation?.goBack()}
               style={{flexDirection: 'row', alignItems: 'center'}}>
               <IconButton icon={'arrow-left'} />
               <Text style={{fontSize: sizes.fontSize.s, color: colors.textPrimary}}>kembali</Text>
@@ -85,7 +85,7 @@ export default function AppNav({navigation}: AppNavProps) {
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity
-              onPress={() => navigation.goBack()}
+              onPress={() => navigation?.goBack()}
               style={{flexDirection: 'row', alignItems: 'center'}}>
               <IconButton icon={'arrow-left'} />
               <Text style={{fontSize: sizes.fontSize.s, color: colors.textPrimary}}>kembali</Text>

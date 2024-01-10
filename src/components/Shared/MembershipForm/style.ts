@@ -9,7 +9,7 @@ export default StyleSheet.create({
     gap: 20,
   },
   formContainer: {
-    gap: 40,
+    gap: 35,
   },
   footerContainer: {
     flexDirection: 'row',

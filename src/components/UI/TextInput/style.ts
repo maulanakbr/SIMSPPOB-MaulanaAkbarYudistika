@@ -1,21 +1,10 @@
 import {StyleSheet} from 'react-native';
 
-import {colors, sizes} from '@/lib/constants';
-
-const {borderRadius, borderWidth, fontSize, height, padding} = sizes;
+import theme from '@/theme';
 
 export default StyleSheet.create({
-  // main: {
-  //   borderColor: colors.tertiary,
-  //   borderRadius: borderRadius.s,
-  //   borderWidth: borderWidth.s,
-  //   color: colors.textTertiary,
-  //   fontSize: fontSize.xs,
-  //   height: height.s,
-  //   padding: padding.xs,
-  // },
   textInputOutline: {
-    borderRadius: 6,
-    borderColor: '#CDCBCB',
+    borderRadius: theme.sizes.borderRadius,
+    borderColor: theme.colors.tertiary,
   },
 });

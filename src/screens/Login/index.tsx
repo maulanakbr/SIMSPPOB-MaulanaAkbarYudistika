@@ -16,12 +16,11 @@ import type {LoginPayload} from '@/types';
 import style from './style';
 
 type LoginParamNavList = {
-  Main: undefined;
   Register: undefined;
 };
 
 export type LoginScreenProps = {
-  navigation: NativeStackNavigationProp<LoginParamNavList, 'Main' | 'Register'>;
+  navigation: NativeStackNavigationProp<LoginParamNavList, 'Register'>;
 };
 
 export default function LoginScreen({navigation}: LoginScreenProps) {
@@ -47,12 +46,7 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
     const {email, password} = loginForm;
 
     Keyboard.dismiss();
-
-    dispatch(login({email, password})).then(item => {
-      if ((item.meta.requestStatus = 'fulfilled')) {
-        navigation.replace('Main');
-      }
-    });
+    dispatch(login({email, password}));
   };
 
   const handleNavigate = () => {
