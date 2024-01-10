@@ -10,11 +10,4 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
-  headlineContainer: {
-    alignItems: 'center',
-  },
-  headlineText: {
-    fontWeight: '700',
-    textAlign: 'center',
-  },
 });

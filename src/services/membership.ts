@@ -29,7 +29,7 @@ export const login = async (payload: LoginPayload): Promise<AxiosResponse<LoginR
   return result;
 };
 export const register = async (
-  payload: RegisterPayload,
+  payload: Omit<RegisterPayload, 'confirmPassword'>,
 ): Promise<AxiosResponse<RegisterResponse>> => {
   const result: AxiosResponse<RegisterResponse> = await instance.post('/registration', payload);
   return result;

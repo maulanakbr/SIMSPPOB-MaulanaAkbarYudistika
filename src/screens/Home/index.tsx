@@ -14,24 +14,31 @@ import style from './style';
 export type HomeScreenProps = BottomTabNavigationProp<AppNavParamList, 'Home'>;
 
 function HomeScreen() {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  const {profile: profileData} = useAppSelector(state => state.membership);
+  const {
+    profile: profileData,
+    token,
+    isError: profileError,
+  } = useAppSelector(state => state.membership);
   const {banners: bannersData, services: servicesData} = useAppSelector(state => state.information);
-  const {balance: balanceData, isSuccess, isError} = useAppSelector(state => state.transaction);
+  const {
+    balance: balanceData,
+    isSuccess: balanceSuccess,
+    isError,
+  } = useAppSelector(state => state.transaction);
 
-  useRender({callback: profile()});
-  useRender({callback: banner()});
-  useRender({callback: service()});
-  useRender({callback: balance()});
+  // useRender({callback: profile()});
+  // useRender({callback: banner()});
+  // useRender({callback: service()});
+  // useRender({callback: balance()});
 
-  // React.useEffect(() => {
-  //   dispatch(banner());
-  //   dispatch(profile());
-  //   dispatch(service());
-  // }, []);
-
-  console.log(isError, isSuccess);
+  React.useEffect(() => {
+    dispatch(banner());
+    dispatch(profile());
+    dispatch(service());
+    dispatch(balance());
+  }, []);
 
   return (
     <React.Fragment>
@@ -47,9 +54,7 @@ function HomeScreen() {
         {/* Header Greet */}
         <View style={{flex: 1}}>
           <Text variants="base">{profileData?.email}</Text>
-          <Text variants="base">
-            {balanceData !== null ? balanceData : JSON.parse('unavailable')}
-          </Text>
+          <Text variants="base">{balanceData?.balance}</Text>
           {bannersData?.map((item, index) => (
             <Text key={index} variants="base">
               {item.banner_name}

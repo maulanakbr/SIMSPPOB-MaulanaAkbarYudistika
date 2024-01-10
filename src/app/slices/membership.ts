@@ -49,7 +49,7 @@ export const login = createAsyncThunk('membership/login', async (payload: LoginP
 
 export const register = createAsyncThunk(
   'membership/register',
-  async (payload: RegisterPayload) => {
+  async (payload: Omit<RegisterPayload, 'confirmPassword'>) => {
     try {
       const {data} = await registerService(payload);
       return data.message;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Image, View, ViewProps} from 'react-native';
+import {Image, View, type ViewProps} from 'react-native';
 
 import {Text} from 'react-native-paper';
 
@@ -9,7 +9,7 @@ type UIBrandsProps = {
   variant?: 'Larger' | 'Smaller';
 } & ViewProps;
 
-export default function Brands({variant = 'Larger', ...props}: UIBrandsProps) {
+export default function BrandsLogo({variant = 'Larger', ...props}: UIBrandsProps) {
   return (
     <View style={style.brandsLogoContainerLarger} {...props}>
       <Image

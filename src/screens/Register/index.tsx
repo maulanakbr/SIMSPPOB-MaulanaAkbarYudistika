@@ -1,25 +1,78 @@
 import * as React from 'react';
-import {Image} from 'react-native';
+import {
+  Keyboard,
+  type NativeSyntheticEvent,
+  type TextInputChangeEventData,
+  View,
+} from 'react-native';
 
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-// import AuthForm from '@/components/Shared/AuthForm';
-import {Box, Text} from '@/components/UI';
-import type {AuthNavParamList} from '@/navigation/AuthNav';
+import {register} from '@/app';
+import {BrandsLogo, HeadlineTopic, MembershipForm} from '@/components/Shared';
+import {useAppDispatch, useAppSelector} from '@/hooks';
+import type {RegisterPayload} from '@/types';
 
 import style from './style';
 
-export type RegisterScreenProps = NativeStackNavigationProp<AuthNavParamList, 'Register'>;
+type RegisterParamNavList = {
+  Login: undefined;
+  Register: undefined;
+};
 
-export default function RegisterScreen() {
+export type RegisterScreenProps = {
+  navigation: NativeStackNavigationProp<RegisterParamNavList, 'Login' | 'Register'>;
+};
+
+export default function RegisterScreen({navigation}: RegisterScreenProps) {
+  const [registerForm, setRegisterForm] = React.useState<RegisterPayload>({
+    email: '',
+    first_name: '',
+    last_name: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const dispatch = useAppDispatch();
+  const {isLoading} = useAppSelector(state => state.membership);
+
+  const handleChangeForm = (
+    e: NativeSyntheticEvent<TextInputChangeEventData>,
+    key: keyof RegisterPayload,
+  ) => {
+    setRegisterForm(prevState => ({
+      ...prevState,
+      [key]: e.nativeEvent.text,
+    }));
+  };
+
+  const handleRegister = () => {
+    const {email, first_name, last_name, password} = registerForm;
+
+    Keyboard.dismiss();
+
+    dispatch(register({email, first_name, last_name, password})).then(item => {
+      if ((item.meta.requestStatus = 'fulfilled')) {
+        navigation.replace('Login');
+      }
+    });
+  };
+
+  const handleNavigate = () => {
+    navigation.replace('Login');
+  };
+
   return (
-    <Box variants="container">
-      <Box variants="flexRow">
-        <Image source={require('@/assets/Logo.png')} style={style.imgLogo} />
-        <Text variants="subheader">SIMS PPOB</Text>
-      </Box>
-      <Text variants="header">Lengkapi data untuk memulai</Text>
-      {/* <AuthForm useFor="Register" /> */}
-    </Box>
+    <View style={style.mainContainer}>
+      <BrandsLogo />
+      <HeadlineTopic title="Lengkapi data untuk membuat akun" />
+      <MembershipForm
+        isLoading={isLoading}
+        onChangeLogin={handleChangeForm}
+        onPressNavigate={handleNavigate}
+        onPressSubmit={handleRegister}
+        useFor="Register"
+      />
+    </View>
   );
 }
