@@ -10,5 +10,8 @@ export default StyleSheet.create({
     width: theme.sizes.width.large,
     height: 50,
   },
+  serviceList: {
+    paddingVertical: 20,
+  },
   serviceButton: {},
 });

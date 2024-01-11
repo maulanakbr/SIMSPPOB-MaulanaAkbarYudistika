@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Image, View} from 'react-native';
+import {Image, View, ViewProps} from 'react-native';
 
 import {AppLogo} from '@/components/Shared';
 
@@ -7,11 +7,11 @@ import style from './style';
 
 type UIAppHeaderProps = {
   imgSource: string | undefined;
-};
+} & ViewProps;
 
-export default function AppHeader({imgSource}: UIAppHeaderProps) {
+export default function AppHeader({imgSource, ...props}: UIAppHeaderProps) {
   return (
-    <View style={style.headerContainer}>
+    <View style={[style.headerContainer, props.style]}>
       <AppLogo variant="Smaller" />
       <Image
         source={

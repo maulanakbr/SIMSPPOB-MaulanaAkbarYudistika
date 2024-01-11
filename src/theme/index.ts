@@ -24,7 +24,7 @@ const theme = {
   },
   sizes: {
     borderRadius: {
-      small: 6,
+      small: 8,
       medium: 14,
     },
     fontSize: {
@@ -37,11 +37,13 @@ const theme = {
       small: 20,
       medium: 40,
       large: 50,
+      xlarge: 135,
     },
     width: {
       small: 20,
       medium: 40,
       large: 50,
+      xlarge: 240,
     },
     marging: {
       small: 30,
