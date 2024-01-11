@@ -1,22 +1,15 @@
 import {StyleSheet} from 'react-native';
 
-import {colors, sizes} from '@/lib/constants';
-
-const {height, width} = sizes;
+import theme from '@/theme';
 
 export default StyleSheet.create({
-  avatar: {
-    height: height.xs,
-    width: width.xs,
+  container: {
+    backgroundColor: theme.colors.background,
+    flex: 1,
+    padding: 20,
+    gap: 20,
   },
-  greetHeader: {
-    textAlign: 'left',
-  },
-  imgLogo: {
-    height: height.xs,
-    width: width.xs,
-  },
-  navigation: {
-    color: colors.primary,
+  serviceList: {
+    paddingTop: 20,
   },
 });

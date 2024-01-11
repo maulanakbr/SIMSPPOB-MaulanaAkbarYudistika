@@ -1,3 +1,5 @@
-export {default as BrandsLogo} from './BrandsLogo';
-export {default as HeadlineTopic} from './HeadlineTopic';
+export {default as AppBalanceCard} from './AppBalanceCard';
+export {default as AppHeadline} from './AppHeadline';
+export {default as AppLogo} from './AppLogo';
+export {default as AppService} from './AppService';
 export {default as MembershipForm} from './MembershipForm';

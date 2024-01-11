@@ -23,11 +23,32 @@ const theme = {
     iconBgDanger: '#FF562F',
   },
   sizes: {
-    borderRadius: 6,
-    sHeight: 20,
-    mHeight: 40,
-    sWidth: 20,
-    mWidth: 40,
+    borderRadius: {
+      small: 6,
+      medium: 14,
+    },
+    fontSize: {
+      small: 12,
+    },
+    gap: {
+      small: 12,
+    },
+    height: {
+      small: 20,
+      medium: 40,
+      large: 50,
+    },
+    width: {
+      small: 20,
+      medium: 40,
+      large: 50,
+    },
+    marging: {
+      small: 30,
+    },
+    padding: {
+      small: 20,
+    },
   },
 } satisfies Record<string, unknown>;
 

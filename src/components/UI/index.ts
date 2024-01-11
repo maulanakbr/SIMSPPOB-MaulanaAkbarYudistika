@@ -1,4 +1,5 @@
-export {default as TextInput} from './TextInput';
+export {default as AppButton} from './AppButton';
+export {default as AppHeader} from './AppHeader';
+export {default as AppTextInput} from './AppTextInput';
 export {default as Box} from './Box';
-export {default as Button} from './Button';
 export {default as Text} from './Text';

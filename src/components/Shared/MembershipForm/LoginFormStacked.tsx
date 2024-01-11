@@ -4,7 +4,7 @@ import {type NativeSyntheticEvent, type TextInputChangeEventData, View} from 're
 import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 
-import {TextInput} from '@/components/UI';
+import {AppTextInput} from '@/components/UI';
 import theme from '@/theme';
 
 import style from './style';
@@ -18,12 +18,12 @@ export default function LoginFormStacked({
 
   return (
     <View style={style.inputStacksContainer}>
-      <TextInput
+      <AppTextInput
         icon={() => <Icon name="at-sign" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => onChangeLogin!(e, 'email')}
         placeholder="masukkan email anda"
       />
-      <TextInput
+      <AppTextInput
         icon={() => <Icon name="lock" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
           onChangeLogin!(e, 'password')

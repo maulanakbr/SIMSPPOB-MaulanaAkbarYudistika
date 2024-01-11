@@ -8,7 +8,7 @@ import {
 
 import {Text} from 'react-native-paper';
 
-import {Button} from '@/components/UI';
+import {AppButton} from '@/components/UI';
 import type {LoginPayload, RegisterPayload} from '@/types';
 
 import LoginFormStacked from './LoginFormStacked';
@@ -45,7 +45,7 @@ export default function MembershipForm({
       ) : (
         <RegisterFormStacked onChangeRegister={onChangeRegister} />
       )}
-      <Button
+      <AppButton
         mode="contained"
         title={useFor === 'Login' ? 'Masuk' : 'Registrasi'}
         onPress={onPressSubmit}
@@ -55,7 +55,7 @@ export default function MembershipForm({
         <Text variant="titleSmall">
           {useFor === 'Login' ? 'belum punya akun? registrasi' : 'sudah punya akun? login'}
         </Text>
-        <Button mode="text" title="di sini" compact={true} onPress={onPressNavigate} />
+        <AppButton mode="text" title="di sini" compact={true} onPress={onPressNavigate} />
       </View>
     </View>
   );

@@ -9,7 +9,7 @@ import {
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 
 import {login} from '@/app';
-import {BrandsLogo, HeadlineTopic, MembershipForm} from '@/components/Shared';
+import {AppHeadline, AppLogo, MembershipForm} from '@/components/Shared';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import type {LoginPayload} from '@/types';
 
@@ -55,8 +55,8 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
 
   return (
     <View style={style.mainContainer}>
-      <BrandsLogo />
-      <HeadlineTopic title="Masuk atau buat akun untuk mulai" />
+      <AppLogo />
+      <AppHeadline title="Masuk atau buat akun untuk mulai" />
       <MembershipForm
         isLoading={isLoading}
         onChangeLogin={handleChangeForm}

@@ -10,12 +10,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   brandsLogoIconLarger: {
-    height: theme.sizes.mHeight,
-    width: theme.sizes.mWidth,
+    height: theme.sizes.height.medium,
+    width: theme.sizes.width.medium,
   },
   brandsLogoIconSmaller: {
-    height: theme.sizes.sHeight,
-    width: theme.sizes.sWidth,
+    height: theme.sizes.height.small,
+    width: theme.sizes.width.small,
   },
   brandsLogoText: {
     fontWeight: 'bold',

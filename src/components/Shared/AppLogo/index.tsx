@@ -5,18 +5,26 @@ import {Text} from 'react-native-paper';
 
 import style from './style';
 
-type UIBrandsProps = {
+type SharedAppLogoProps = {
   variant?: 'Larger' | 'Smaller';
 } & ViewProps;
 
-export default function BrandsLogo({variant = 'Larger', ...props}: UIBrandsProps) {
+export default function AppLogo({variant = 'Larger', ...props}: SharedAppLogoProps) {
   return (
-    <View style={style.brandsLogoContainerLarger} {...props}>
+    <View
+      style={
+        variant === 'Larger'
+          ? style.brandsLogoContainerLarger
+          : [style.brandsLogoContainerLarger, {gap: 8}]
+      }
+      {...props}>
       <Image
         source={require('@/assets/Logo.png')}
         style={variant === 'Larger' ? style.brandsLogoIconLarger : style.brandsLogoIconSmaller}
       />
-      <Text variant="headlineMedium" style={style.brandsLogoText}>
+      <Text
+        variant={variant === 'Larger' ? 'headlineMedium' : 'bodyLarge'}
+        style={style.brandsLogoText}>
         SIMS PPOB
       </Text>
     </View>

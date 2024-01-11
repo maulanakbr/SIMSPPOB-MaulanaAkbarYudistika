@@ -7,12 +7,12 @@ import theme from '@/theme';
 
 import style from './style';
 
-export type UITextInputProps = {
+export type UIAppTextInputProps = {
   icon: IconSource;
   placeholder: string;
 } & TextInputProps;
 
-export default function TextInput({placeholder, icon, ...props}: UITextInputProps) {
+export default function AppTextInput({placeholder, icon, ...props}: UIAppTextInputProps) {
   const {colors} = useTheme<typeof theme>();
 
   return (

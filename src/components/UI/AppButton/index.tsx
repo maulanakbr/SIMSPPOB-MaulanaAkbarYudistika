@@ -6,20 +6,20 @@ import theme from '@/theme';
 
 import style from './style';
 
-type UIButtonProps = {
+type UIAppButtonProps = {
   mode?: 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal' | undefined;
   title: string;
 } & Omit<ButtonProps, 'children'>;
 
-export default function Button({title, mode, ...props}: UIButtonProps) {
+export default function AppButton({title, mode, ...props}: UIAppButtonProps) {
   const {colors} = useTheme<typeof theme>();
 
   return (
     <RNPButton
       mode={mode}
       buttonColor={mode !== 'text' ? colors.primary : undefined}
-      textColor={mode !== 'text' ? undefined : colors.primary}
       style={style.buttonInput}
+      textColor={mode !== 'text' ? undefined : colors.primary}
       {...props}>
       {title}
     </RNPButton>

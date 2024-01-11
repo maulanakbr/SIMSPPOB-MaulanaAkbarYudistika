@@ -4,7 +4,7 @@ import {type NativeSyntheticEvent, type TextInputChangeEventData, View} from 're
 import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 
-import {TextInput} from '@/components/UI';
+import {AppTextInput} from '@/components/UI';
 import theme from '@/theme';
 
 import style from './style';
@@ -18,28 +18,28 @@ export default function RegisterFormStacked({
 
   return (
     <View style={style.inputStacksContainer}>
-      <TextInput
+      <AppTextInput
         icon={() => <Icon name="at-sign" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
           onChangeRegister!(e, 'email')
         }
         placeholder="masukkan email anda"
       />
-      <TextInput
+      <AppTextInput
         icon={() => <Icon name="user" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
           onChangeRegister!(e, 'first_name')
         }
         placeholder="nama depan"
       />
-      <TextInput
+      <AppTextInput
         icon={() => <Icon name="user" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
           onChangeRegister!(e, 'last_name')
         }
         placeholder="name belakang"
       />
-      <TextInput
+      <AppTextInput
         icon={() => <Icon name="lock" color={colors.tertiary} size={20} />}
         placeholder="buat password"
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
@@ -47,7 +47,7 @@ export default function RegisterFormStacked({
         }
         secureTextEntry={true}
       />
-      <TextInput
+      <AppTextInput
         icon={() => <Icon name="lock" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
           onChangeRegister!(e, 'confirmPassword')
