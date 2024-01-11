@@ -1,10 +1,14 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
+
+import {AppBalanceCard} from '@/components/Shared';
+
+import style from './style';
 
 function TopUpScreen() {
   return (
-    <View>
-      <Text>TopUp Screen</Text>
+    <View style={style.container}>
+      <AppBalanceCard visibleAsPriority={true} />
     </View>
   );
 }

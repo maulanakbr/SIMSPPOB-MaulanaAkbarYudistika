@@ -18,7 +18,7 @@ export default function useRender<T>({callback}: UseRenderParams<T>) {
     }
 
     dispatch(callback);
-  }, []);
+  }, [callback]);
 
   return;
 }

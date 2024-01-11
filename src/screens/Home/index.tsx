@@ -6,7 +6,7 @@ import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {profile} from '@/app';
 import {AppBalanceCard, AppBanner, AppHeadline, AppService} from '@/components/Shared';
 import {AppHeader} from '@/components/UI';
-import {useAppSelector, useRender} from '@/hooks';
+import {useAppDispatch, useAppSelector} from '@/hooks';
 import type {AppNavParamList} from '@/navigation/AppNav';
 
 import style from './style';
@@ -14,13 +14,16 @@ import style from './style';
 export type HomeScreenProps = BottomTabNavigationProp<AppNavParamList, 'Home'>;
 
 function HomeScreen() {
+  const dispatch = useAppDispatch();
   const {profile: profileData} = useAppSelector(state => state.membership);
 
   const convertTofullName = (firstName: string, lastName: string) => {
     return `${firstName} ${lastName}`;
   };
 
-  useRender({callback: profile()});
+  React.useEffect(() => {
+    dispatch(profile());
+  }, []);
 
   return (
     <View style={style.container}>

@@ -4,7 +4,7 @@ import theme from '@/theme';
 
 export default StyleSheet.create({
   textInputOutline: {
-    borderRadius: theme.sizes.borderRadius,
+    borderRadius: theme.sizes.borderRadius.small,
     borderColor: theme.colors.tertiary,
   },
 });

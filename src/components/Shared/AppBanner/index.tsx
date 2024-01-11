@@ -2,16 +2,19 @@ import * as React from 'react';
 import {FlatList, Image, Text, View} from 'react-native';
 
 import {banner} from '@/app';
-import {useAppSelector, useRender} from '@/hooks';
+import {useAppDispatch, useAppSelector} from '@/hooks';
 import {BannerData} from '@/types';
 
 import style from './style';
 import AppHeadline from '../AppHeadline';
 
 export default function AppBanner() {
+  const dispatch = useAppDispatch();
   const {banners: bannersData} = useAppSelector(state => state.information);
 
-  useRender({callback: banner()});
+  React.useEffect(() => {
+    dispatch(banner());
+  }, []);
 
   return (
     <View>

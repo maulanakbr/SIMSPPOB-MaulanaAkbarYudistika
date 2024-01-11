@@ -60,7 +60,7 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
       <MembershipForm
         isLoading={isLoading}
         onChangeLogin={handleChangeForm}
-        onPressNavigate={() => handleNavigate()}
+        onPressNavigate={handleNavigate}
         onPressSubmit={handleLogin}
         useFor="Login"
       />

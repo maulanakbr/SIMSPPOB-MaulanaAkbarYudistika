@@ -2,16 +2,19 @@ import * as React from 'react';
 import {FlatList, View} from 'react-native';
 
 import {service} from '@/app';
-import {useAppSelector, useRender} from '@/hooks';
+import {useAppDispatch, useAppSelector} from '@/hooks';
 import type {ServiceData} from '@/types';
 
 import ServiceItem from './ServiceItem';
 import style from './style';
 
 export default function AppService() {
+  const dispatch = useAppDispatch();
   const {services: servicesData} = useAppSelector(state => state.information);
 
-  useRender({callback: service()});
+  React.useEffect(() => {
+    dispatch(service());
+  }, []);
 
   return (
     <View>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {type GestureResponderEvent, View} from 'react-native';
+import {View} from 'react-native';
 
 import {Text, useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
@@ -11,7 +11,11 @@ import theme from '@/theme';
 
 import style from './style';
 
-export default function AppBalanceCard() {
+type SharedAppBalanceCardProps = {
+  visibleAsPriority?: boolean;
+};
+
+export default function AppBalanceCard({visibleAsPriority = false}: SharedAppBalanceCardProps) {
   const [visible, setVisible] = React.useState<boolean>(false);
 
   const {colors} = useTheme<typeof theme>();
@@ -32,7 +36,7 @@ export default function AppBalanceCard() {
   };
 
   React.useEffect(() => {
-    dispatch(balance);
+    dispatch(balance());
   }, []);
 
   return (
@@ -42,23 +46,27 @@ export default function AppBalanceCard() {
           Saldo anda
         </Text>
         <Text variant="headlineLarge" style={style.cardSubContent}>
-          {convertBalance(balanceData?.balance as number)}
+          {visibleAsPriority
+            ? `Rp. ${balanceData?.balance}`
+            : convertBalance(balanceData?.balance as number)}
         </Text>
-        <AppButton
-          mode="text"
-          compact={true}
-          contentStyle={{
-            flexDirection: 'row-reverse',
-          }}
-          icon={() => <Icon name="eye" color={colors.tertiary} size={20} />}
-          labelStyle={{
-            fontWeight: '400',
-          }}
-          onPress={handleVisibleBalance}
-          style={style.cardActionButton}
-          textColor={colors.textSecondary}
-          title="Lihat saldo"
-        />
+        {visibleAsPriority === false ? (
+          <AppButton
+            mode="text"
+            compact={true}
+            contentStyle={{
+              flexDirection: 'row-reverse',
+            }}
+            icon={() => <Icon name="eye" color={colors.tertiary} size={20} />}
+            labelStyle={{
+              fontWeight: '400',
+            }}
+            onPress={handleVisibleBalance}
+            style={style.cardActionButton}
+            textColor={colors.textSecondary}
+            title="Lihat saldo"
+          />
+        ) : null}
       </View>
     </View>
   );
