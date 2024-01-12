@@ -15,7 +15,9 @@ export default function AppHeader({imgSource, ...props}: UIAppHeaderProps) {
       <AppLogo variant="Smaller" />
       <Image
         source={
-          imgSource?.includes('null') ? {uri: imgSource} : require('@/assets/Profile-Photo.png')
+          imgSource && !imgSource?.includes('null')
+            ? {uri: imgSource}
+            : require('@/assets/Profile-Photo.png')
         }
         style={style.avatar}
       />

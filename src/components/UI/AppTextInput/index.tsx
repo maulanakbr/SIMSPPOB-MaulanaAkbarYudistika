@@ -8,7 +8,7 @@ import theme from '@/theme';
 import style from './style';
 
 export type UIAppTextInputProps = {
-  icon: IconSource;
+  icon?: IconSource;
   placeholder: string;
 } & TextInputProps;
 
@@ -18,7 +18,7 @@ export default function AppTextInput({placeholder, icon, ...props}: UIAppTextInp
   return (
     <RNPTextInput
       mode="outlined"
-      left={<RNPTextInput.Icon icon={icon} size={20} />}
+      left={<RNPTextInput.Icon icon={icon as IconSource} size={20} />}
       placeholder={placeholder}
       outlineStyle={style.textInputOutline}
       placeholderTextColor={colors.textTertiary}

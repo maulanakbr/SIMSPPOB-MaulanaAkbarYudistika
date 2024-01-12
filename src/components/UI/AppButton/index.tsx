@@ -18,7 +18,7 @@ export default function AppButton({title, mode, ...props}: UIAppButtonProps) {
     <RNPButton
       mode={mode}
       buttonColor={mode !== 'text' ? colors.primary : undefined}
-      style={style.buttonInput}
+      style={[style.buttonInput, props.style]}
       textColor={mode !== 'text' ? undefined : colors.primary}
       {...props}>
       {title}

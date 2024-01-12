@@ -6,7 +6,8 @@ export default StyleSheet.create({
   container: {
     backgroundColor: theme.colors.background,
     flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: theme.sizes.padding.small,
+    paddingVertical: theme.sizes.padding.xsmall,
+    gap: theme.sizes.gap.large,
   },
 });

@@ -21,10 +21,12 @@ type TransactionState = {
   balance: BalanceData | null;
   transaction: TransactionData | null;
   transactionHistory: TransactionHistoryData[] | undefined;
+  currentTopUpAmount: number | null;
 } & BaseSliceState;
 
 const initialState: TransactionState = {
   balance: null,
+  currentTopUpAmount: null,
   transaction: null,
   transactionHistory: [],
   isError: '',
@@ -84,7 +86,14 @@ export const transactionHistory = createAsyncThunk(
 const transactionSlice = createSlice({
   name: 'payment',
   initialState,
-  reducers: {},
+  reducers: {
+    setTopUpAmount(state, action) {
+      state.currentTopUpAmount += action.payload;
+    },
+    resetTopUpAmount(state, action) {
+      state.currentTopUpAmount = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(balance.pending, state => {
@@ -142,4 +151,5 @@ const transactionSlice = createSlice({
   },
 });
 
+export const {setTopUpAmount, resetTopUpAmount} = transactionSlice.actions;
 export const transactionReducer = transactionSlice.reducer;

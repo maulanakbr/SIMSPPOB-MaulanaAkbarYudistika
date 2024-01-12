@@ -23,6 +23,7 @@ const theme = {
     iconBgDanger: '#FF562F',
   },
   sizes: {
+    reset: 0,
     borderRadius: {
       small: 8,
       medium: 14,
@@ -32,6 +33,8 @@ const theme = {
     },
     gap: {
       small: 12,
+      medium: 20,
+      large: 40,
     },
     height: {
       small: 20,
@@ -49,6 +52,7 @@ const theme = {
       small: 30,
     },
     padding: {
+      xsmall: 10,
       small: 20,
     },
   },
