@@ -43,7 +43,7 @@ export const profile = async (): Promise<AxiosResponse<ProfileResponse>> => {
 export const profileUpdate = async (
   payload: ProfileUpdatePayload,
 ): Promise<AxiosResponse<ProfileResponse>> => {
-  const result: AxiosResponse<ProfileResponse> = await instance.patch('/profile/update', payload);
+  const result: AxiosResponse<ProfileResponse> = await instance.put('/profile/update', payload);
   return result;
 };
 

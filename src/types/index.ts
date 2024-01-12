@@ -28,6 +28,7 @@ export type ProfileUpdatePayload = z.infer<typeof ProfileUpdatePayload>;
 export type ProfileUpdateImagePayload = z.infer<typeof ProfileUpdateImagePayload>;
 export type TopUpPayload = z.infer<typeof TopUpPayload>;
 export type TransactionPayload = z.infer<typeof TransactionPayload>;
+
 export type ProfileData = {
   email: string;
   first_name: string;

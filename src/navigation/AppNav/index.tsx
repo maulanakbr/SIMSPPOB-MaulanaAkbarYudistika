@@ -101,7 +101,33 @@ export default function AppNav({navigation}: AppNavProps) {
           headerTitleAlign: 'center',
         }}
       />
-      <Tab.Screen name="Akun" component={ProfileScreen} />
+      <Tab.Screen
+        name="Akun"
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: 'Akun',
+          // tabBarIcon: ({color, focused}) => (
+          //   <MaterialIcons name={focused ? 'money' : 'money'} color={color} size={sizes.fontSize.m} />
+          // ),
+          headerShown: true,
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => navigation?.goBack()}
+              style={{flexDirection: 'row', alignItems: 'center'}}>
+              <IconButton icon={'arrow-left'} />
+              <Text style={{fontSize: sizes.fontSize.s, color: colors.textPrimary}}>kembali</Text>
+            </TouchableOpacity>
+          ),
+          headerTitle: 'Akun',
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            fontSize: sizes.fontSize.s,
+            fontWeight: sizes.fontWeight.xl,
+            color: colors.textPrimary,
+          },
+          headerTitleAlign: 'center',
+        }}
+      />
     </Tab.Navigator>
   );
 }

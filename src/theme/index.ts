@@ -25,6 +25,7 @@ const theme = {
   sizes: {
     reset: 0,
     borderRadius: {
+      xsmall: 6,
       small: 8,
       medium: 14,
     },
@@ -32,7 +33,7 @@ const theme = {
       small: 12,
     },
     gap: {
-      small: 12,
+      small: 15,
       medium: 20,
       large: 40,
     },

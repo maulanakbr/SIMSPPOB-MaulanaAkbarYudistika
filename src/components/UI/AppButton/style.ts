@@ -1,9 +1,11 @@
 import {StyleSheet} from 'react-native';
 
+import theme from '@/theme';
+
 export default StyleSheet.create({
   buttonInput: {
-    height: 50,
-    borderRadius: 6,
+    height: theme.sizes.height.large,
+    borderRadius: theme.sizes.borderRadius.xsmall,
     justifyContent: 'center',
   },
 });
