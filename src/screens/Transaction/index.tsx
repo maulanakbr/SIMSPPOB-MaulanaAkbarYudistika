@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 
 import {transactionHistory} from '@/app';
 import {AppBalanceCard, AppHeadline, AppTransactionHistoryCard} from '@/components/Shared';

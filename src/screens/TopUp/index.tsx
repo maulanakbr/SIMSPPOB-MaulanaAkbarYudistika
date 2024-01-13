@@ -2,11 +2,11 @@ import * as React from 'react';
 import {type NativeSyntheticEvent, type TextInputChangeEventData, View} from 'react-native';
 
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {useTheme} from 'react-native-paper';
+import {Dialog, Portal, Text, useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {setTopUpAmount, topUp} from '@/app';
-import {AppBalanceCard, AppHeadline} from '@/components/Shared';
+import {AppBalanceCard, AppHeadline, AppLogo} from '@/components/Shared';
 import AppTopUpOptions from '@/components/Shared/AppTopUpOptions';
 import {AppButton, AppTextInput} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
@@ -23,8 +23,9 @@ type TopUpScreenProps = {
 };
 
 function TopUpScreen({navigation}: TopUpScreenProps) {
-  const {colors} = useTheme<typeof theme>();
+  const {colors, sizes} = useTheme<typeof theme>();
 
+  const [dialogVisibility, setDialogVisibility] = React.useState<boolean>(false);
   const [nominalFromUserInput, setNominalFromUserInput] = React.useState<number | null>(null);
 
   const dispatch = useAppDispatch();
@@ -32,6 +33,10 @@ function TopUpScreen({navigation}: TopUpScreenProps) {
 
   const handleNominalChangeToScreen = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     setNominalFromUserInput(Number(e.nativeEvent.text));
+  };
+
+  const handleDialog = () => {
+    setDialogVisibility(!dialogVisibility);
   };
 
   const handleTopUp = () => {
@@ -42,6 +47,7 @@ function TopUpScreen({navigation}: TopUpScreenProps) {
     ).then(item => {
       if (item.meta.requestStatus === 'fulfilled') {
         setNominalFromUserInput(null);
+        handleDialog();
         navigation.navigate('Transaction');
       }
     });
@@ -81,9 +87,36 @@ function TopUpScreen({navigation}: TopUpScreenProps) {
         mode="contained"
         title="Top Up"
         disabled={nominalFromUserInput && currentTopUpAmount === 0 ? true : false}
-        loading={isLoading}
-        onPress={handleTopUp}
+        onPress={handleDialog}
       />
+      {/* Dialog */}
+      <Portal>
+        <Dialog visible={dialogVisibility} style={style.dialog}>
+          <Dialog.Content style={[style.dialogContent]}>
+            <AppLogo variant="Logo Only" />
+            <AppHeadline
+              variant="dialog"
+              textInput={['Anda yakin untuk Top Up sebesar', currentTopUpAmount!.toString()]}
+              style={[{gap: 8}]}
+            />
+          </Dialog.Content>
+          <Dialog.Actions style={[style.dialogActions]}>
+            <AppButton
+              mode="text"
+              title="Ya, lanjutkan Top Up"
+              labelStyle={{color: colors.primary, fontSize: 18}}
+              onPress={handleTopUp}
+              loading={isLoading}
+            />
+            <AppButton
+              mode="text"
+              title="Batalkan"
+              labelStyle={{color: colors.textTertiary, fontSize: 18}}
+              onPress={handleDialog}
+            />
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   );
 }

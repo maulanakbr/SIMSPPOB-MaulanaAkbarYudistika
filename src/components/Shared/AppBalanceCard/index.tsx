@@ -21,7 +21,7 @@ export default function AppBalanceCard({visibleAsPriority = false}: SharedAppBal
   const {colors} = useTheme<typeof theme>();
 
   const dispatch = useAppDispatch();
-  const {balance: balanceData} = useAppSelector(state => state.transaction);
+  const {balance: balanceData, transaction} = useAppSelector(state => state.transaction);
 
   const convertBalance = React.useCallback(
     (value: number) => {
@@ -37,7 +37,7 @@ export default function AppBalanceCard({visibleAsPriority = false}: SharedAppBal
 
   React.useEffect(() => {
     dispatch(balance());
-  }, []);
+  }, [transaction]);
 
   return (
     <View style={style.cardContainer}>

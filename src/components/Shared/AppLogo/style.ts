@@ -20,4 +20,8 @@ export default StyleSheet.create({
   brandsLogoText: {
     fontWeight: 'bold',
   },
+  brandsLogoOnly: {
+    height: 70,
+    width: 70,
+  },
 });
