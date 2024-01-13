@@ -42,11 +42,13 @@ const theme = {
       medium: 40,
       large: 50,
       xlarge: 135,
+      xxlarge: 150,
     },
     width: {
       small: 20,
       medium: 40,
       large: 50,
+      xxlarge: 150,
       xlarge: 240,
     },
     marging: {

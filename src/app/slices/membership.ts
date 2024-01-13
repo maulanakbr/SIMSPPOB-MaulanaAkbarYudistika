@@ -18,6 +18,8 @@ import type {
   RegisterPayload,
 } from '@/types';
 
+import {store} from '../store';
+
 export type MembershipState = {
   isLoggedIn: boolean;
   profile: ProfileData | null;
@@ -108,6 +110,7 @@ const membershipSlice = createSlice({
     logout(state) {
       state.isLoggedIn = false;
       state.token = '';
+
       removeStorage({key: 'token'});
     },
   },

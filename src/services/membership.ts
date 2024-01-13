@@ -50,6 +50,10 @@ export const profileUpdate = async (
 export const profileUpdateImage = async (
   payload: ProfileUpdateImagePayload,
 ): Promise<AxiosResponse<ProfileResponse>> => {
-  const result: AxiosResponse<ProfileResponse> = await instance.patch('/profile/image', payload);
+  const result: AxiosResponse<ProfileResponse> = await instance.put('/profile/image', payload, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return result;
 };

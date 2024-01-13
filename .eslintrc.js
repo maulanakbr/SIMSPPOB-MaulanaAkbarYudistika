@@ -7,9 +7,27 @@ module.exports = {
     '@react-native',
     'prettier',
   ],
-  ignorePatterns: ['**/*/*.js', '*.js', '*.svg', '*.json', '*.png', 'package.json', 'package-lock.json', 'yarn.lock'],
+  ignorePatterns: [
+    '**/*/*.js',
+    '*.js',
+    '*.svg',
+    '*.json',
+    '*.png',
+    'package.json',
+    'package-lock.json',
+    'yarn.lock',
+  ],
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'react', 'react-native', 'prettier', 'react-hooks', '@typescript-eslint', 'promise', 'unused-imports'],
+  plugins: [
+    'import',
+    'react',
+    'react-native',
+    'prettier',
+    'react-hooks',
+    '@typescript-eslint',
+    'promise',
+    'unused-imports',
+  ],
   env: {
     es2021: true,
     'react-native/react-native': true,
@@ -60,7 +78,7 @@ module.exports = {
     'react-native/no-color-literals': 0,
     'react-native/no-raw-text': 0,
     'import/no-extraneous-dependencies': 'off',
-    'import/no-named-as-default-member': 2,
+    'import/no-named-as-default-member': 'off',
     'import/order': [
       'error',
       {

@@ -16,6 +16,7 @@ export default StyleSheet.create({
   },
   avatar: {
     alignSelf: 'center',
+    borderRadius: 80,
     height: 150,
     width: 150,
   },

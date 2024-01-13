@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import ImagePicker, {type ImageOrVideo, PickerErrorCode} from 'react-native-image-crop-picker';
 import {IconButton, useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 
-import {logout, profile, profileUpdate} from '@/app';
+import {logout, profile, profileUpdate, profileUpdateImage} from '@/app';
 import {AppButton, AppTextInput} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import theme from '@/theme';
@@ -28,14 +29,15 @@ type ProfileScreenProps = {
   navigation: BottomTabNavigationProp<ProfileScreenParamNavList, 'Home'>;
 };
 
-function ProfileScreen({navigation}: ProfileScreenProps) {
-  const {colors} = useTheme<typeof theme>();
+export default function ProfileScreen({navigation}: ProfileScreenProps) {
+  const {colors, sizes} = useTheme<typeof theme>();
 
   const [isEditProfile, setIsEditProfile] = React.useState<boolean>(false);
   const [updateProfileForm, setUpdateProfileForm] = React.useState<ProfileUpdatePayload>({
     first_name: '',
     last_name: '',
   });
+  const [uploadProfileImage, setUploadProfileImage] = React.useState<string | null>(null);
 
   const dispatch = useAppDispatch();
   const {profile: profileData, isLoading, isError} = useAppSelector(state => state.membership);
@@ -54,13 +56,41 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
     }));
   };
 
-  const handleImagePicer = () => {};
-
   const handleEditProfile = () => {
     setIsEditProfile(!isEditProfile);
   };
 
+  const handleImageUpload = async () => {
+    try {
+      const image = await ImagePicker.openPicker({
+        cropping: true,
+        height: sizes.height.xxlarge,
+        width: sizes.width.xxlarge,
+        includeBase64: true,
+      });
+
+      if (image.size / 1024 > 100) {
+        console.log('Too Large');
+      } else {
+        setUploadProfileImage(image.path);
+      }
+    } catch (error) {
+      const err = error as PickerErrorCode;
+      if (err === 'E_PICKER_CANCELLED') {
+        throw new Error(err);
+      }
+    }
+  };
+
   const handleUpdateProfile = () => {
+    const updateImageForm = new FormData();
+
+    updateImageForm.append('file', {
+      uri: uploadProfileImage,
+      type: 'image/jpeg',
+      name: 'profile.jpeg',
+    });
+
     dispatch(
       profileUpdate({
         first_name:
@@ -72,9 +102,10 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
             ? profileData!.last_name!
             : updateProfileForm?.last_name,
       }),
-    ).then(item => {
-      if (item.meta.requestStatus === 'fulfilled') {
-        Keyboard.dismiss();
+    );
+
+    dispatch(profileUpdateImage(updateImageForm as unknown as string)).then(result => {
+      if (result.meta.requestStatus === 'fulfilled') {
         setIsEditProfile(!isEditProfile);
         navigation.navigate('Home');
       }
@@ -89,7 +120,7 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
     <View style={style.container}>
       {/* Avatar */}
       <View style={style.avatarContainer}>
-        <Pressable onPress={handleImagePicer}>
+        <Pressable onPress={isEditProfile ? handleImageUpload : undefined}>
           <Image
             source={
               profileData && !profileData?.profile_image.includes('null')
@@ -146,5 +177,3 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
     </View>
   );
 }
-
-export default ProfileScreen;

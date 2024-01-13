@@ -25,6 +25,8 @@ function HomeScreen() {
     dispatch(profile());
   }, []);
 
+  console.log(profileData);
+
   return (
     <View style={style.container}>
       <ScrollView style={{flex: 1}} nestedScrollEnabled showsVerticalScrollIndicator={false}>

@@ -9,6 +9,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   avatar: {
+    borderRadius: 80,
     height: theme.sizes.height.medium,
     width: theme.sizes.width.medium,
   },
