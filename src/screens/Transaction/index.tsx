@@ -15,7 +15,11 @@ function TransactionScreen() {
   });
 
   const dispatch = useAppDispatch();
-  const {transactionHistory: transactionHistoryData} = useAppSelector(state => state.transaction);
+  const {
+    transactionHistory: transactionHistoryData,
+    transaction,
+    balance,
+  } = useAppSelector(state => state.transaction);
 
   React.useEffect(() => {
     dispatch(
@@ -24,7 +28,7 @@ function TransactionScreen() {
         limit: params.limit,
       }),
     );
-  }, []);
+  }, [transaction, balance]);
 
   return (
     <View style={style.container}>

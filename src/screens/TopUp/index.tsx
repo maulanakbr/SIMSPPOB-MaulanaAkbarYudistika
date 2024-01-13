@@ -5,7 +5,7 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {topUp} from '@/app';
+import {setTopUpAmount, topUp} from '@/app';
 import {AppBalanceCard, AppHeadline} from '@/components/Shared';
 import AppTopUpOptions from '@/components/Shared/AppTopUpOptions';
 import {AppButton, AppTextInput} from '@/components/UI';
@@ -35,10 +35,13 @@ function TopUpScreen({navigation}: TopUpScreenProps) {
   };
 
   const handleTopUp = () => {
+    dispatch(setTopUpAmount(0));
+
     dispatch(
       topUp({top_up_amount: !nominalFromUserInput ? currentTopUpAmount! : nominalFromUserInput!}),
     ).then(item => {
       if (item.meta.requestStatus === 'fulfilled') {
+        setNominalFromUserInput(null);
         navigation.navigate('Transaction');
       }
     });
