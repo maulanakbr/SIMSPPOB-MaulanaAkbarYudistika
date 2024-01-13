@@ -105,7 +105,7 @@ const membershipSlice = createSlice({
     setToken(state, action) {
       state.token = action.payload;
     },
-    signOut(state) {
+    logout(state) {
       state.isLoggedIn = false;
       state.token = '';
       removeStorage({key: 'token'});
@@ -181,5 +181,5 @@ const membershipSlice = createSlice({
   },
 });
 
-export const {setToken, signOut} = membershipSlice.actions;
+export const {setToken, logout} = membershipSlice.actions;
 export const membershipReducer = membershipSlice.reducer;

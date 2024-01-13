@@ -16,8 +16,8 @@ export default StyleSheet.create({
   },
   avatar: {
     alignSelf: 'center',
-    height: 140,
-    width: 140,
+    height: 150,
+    width: 150,
   },
   profileFormStack: {
     gap: theme.sizes.gap.small,
@@ -27,5 +27,14 @@ export default StyleSheet.create({
     borderColor: theme.colors.primary,
     borderRadius: theme.sizes.borderRadius.xsmall,
     height: theme.sizes.height.large,
+  },
+  uploadAvatarButton: {
+    position: 'absolute',
+    bottom: 10,
+    right: 90,
+    backgroundColor: theme.colors.background,
+    borderRadius: 100,
+    borderColor: theme.colors.secondary,
+    borderWidth: 0.3,
   },
 });

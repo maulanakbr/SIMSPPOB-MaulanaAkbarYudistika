@@ -9,7 +9,7 @@ import {
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {register} from '@/app';
-import {AppHeadline, AppLogo, MembershipForm} from '@/components/Shared';
+import {AppHeadline, AppLogo, AppMembershipForm} from '@/components/Shared';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import type {RegisterPayload} from '@/types';
 
@@ -66,7 +66,7 @@ export default function RegisterScreen({navigation}: RegisterScreenProps) {
     <View style={style.mainContainer}>
       <AppLogo />
       <AppHeadline title="Lengkapi data untuk membuat akun" />
-      <MembershipForm
+      <AppMembershipForm
         isLoading={isLoading}
         onChangeLogin={handleChangeForm}
         onPressNavigate={handleNavigate}

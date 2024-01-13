@@ -9,11 +9,11 @@ import theme from '@/theme';
 
 import style from './style';
 
-import type {SharedMembershipFormProps} from '.';
+import type {SharedAppMembershipFormProps} from '.';
 
 export default function LoginFormStacked({
   onChangeLogin,
-}: Pick<SharedMembershipFormProps, 'onChangeLogin'>) {
+}: Pick<SharedAppMembershipFormProps, 'onChangeLogin'>) {
   const {colors} = useTheme<typeof theme>();
 
   return (

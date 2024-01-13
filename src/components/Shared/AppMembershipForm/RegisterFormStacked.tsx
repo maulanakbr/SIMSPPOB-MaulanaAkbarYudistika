@@ -9,11 +9,11 @@ import theme from '@/theme';
 
 import style from './style';
 
-import type {SharedMembershipFormProps} from '.';
+import type {SharedAppMembershipFormProps} from '.';
 
 export default function RegisterFormStacked({
   onChangeRegister,
-}: Pick<SharedMembershipFormProps, 'onChangeRegister'>) {
+}: Pick<SharedAppMembershipFormProps, 'onChangeRegister'>) {
   const {colors} = useTheme<typeof theme>();
 
   return (

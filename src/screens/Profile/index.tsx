@@ -3,15 +3,16 @@ import {
   Image,
   Keyboard,
   type NativeSyntheticEvent,
+  Pressable,
   type TextInputChangeEventData,
   View,
 } from 'react-native';
 
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {useTheme} from 'react-native-paper';
+import {IconButton, useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 
-import {profile, profileUpdate} from '@/app';
+import {logout, profile, profileUpdate} from '@/app';
 import {AppButton, AppTextInput} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import theme from '@/theme';
@@ -41,7 +42,6 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
 
   React.useEffect(() => {
     dispatch(profile());
-    dispatch(profile());
   }, []);
 
   const handleChangeForm = (
@@ -54,6 +54,8 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
     }));
   };
 
+  const handleImagePicer = () => {};
+
   const handleEditProfile = () => {
     setIsEditProfile(!isEditProfile);
   };
@@ -61,8 +63,14 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
   const handleUpdateProfile = () => {
     dispatch(
       profileUpdate({
-        first_name: updateProfileForm.first_name,
-        last_name: updateProfileForm.last_name,
+        first_name:
+          updateProfileForm.first_name === ''
+            ? profileData!.first_name!
+            : updateProfileForm.first_name,
+        last_name:
+          updateProfileForm.last_name === ''
+            ? profileData!.last_name!
+            : updateProfileForm?.last_name,
       }),
     ).then(item => {
       if (item.meta.requestStatus === 'fulfilled') {
@@ -73,18 +81,27 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
     });
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <View style={style.container}>
       {/* Avatar */}
       <View style={style.avatarContainer}>
-        <Image
-          source={
-            profileData && !profileData?.profile_image.includes('null')
-              ? {uri: profileData.profile_image}
-              : require('@/assets/Avatar.png')
-          }
-          style={style.avatar}
-        />
+        <Pressable onPress={handleImagePicer}>
+          <Image
+            source={
+              profileData && !profileData?.profile_image.includes('null')
+                ? {uri: profileData.profile_image}
+                : require('@/assets/Avatar.png')
+            }
+            style={style.avatar}
+          />
+          {isEditProfile && (
+            <IconButton icon="pencil" size={20} style={[style.uploadAvatarButton]} />
+          )}
+        </Pressable>
       </View>
       {/* ProfileFormStack */}
       <View style={style.profileFormStack}>
@@ -124,8 +141,7 @@ function ProfileScreen({navigation}: ProfileScreenProps) {
         title={isEditProfile ? 'Batalkan' : 'Logout'}
         buttonColor={colors.background}
         style={style.outlinedButton}
-        // onPress={}
-        // loading={isLoading}
+        onPress={isEditProfile ? handleEditProfile : handleLogout}
       />
     </View>
   );

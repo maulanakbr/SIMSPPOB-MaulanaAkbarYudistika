@@ -15,7 +15,7 @@ import LoginFormStacked from './LoginFormStacked';
 import RegisterFormStacked from './RegisterFormStacked';
 import style from './style';
 
-export type SharedMembershipFormProps = {
+export type SharedAppMembershipFormProps = {
   isLoading: boolean;
   onPressSubmit: (e: GestureResponderEvent) => void;
   onPressNavigate: (e: GestureResponderEvent) => void;
@@ -30,14 +30,14 @@ export type SharedMembershipFormProps = {
   useFor: 'Login' | 'Register';
 };
 
-export default function MembershipForm({
+export default function AppMembershipForm({
   isLoading,
   onChangeLogin,
   onChangeRegister,
   onPressNavigate,
   onPressSubmit,
   useFor,
-}: SharedMembershipFormProps) {
+}: SharedAppMembershipFormProps) {
   return (
     <View style={style.formContainer}>
       {useFor === 'Login' ? (
