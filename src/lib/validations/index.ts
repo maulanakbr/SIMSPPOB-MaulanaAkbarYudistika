@@ -30,4 +30,6 @@ export const TopUpPayload = z.object({
   top_up_amount: z.number(),
 });
 
-export const TransactionPayload: z.ZodType<ServiceCode> = z.enum(methods);
+export const TransactionPayload = z.object({
+  service_code: z.enum(methods),
+});

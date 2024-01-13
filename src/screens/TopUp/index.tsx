@@ -15,11 +15,11 @@ import theme from '@/theme';
 import style from './style';
 
 type TopUpScreenParamNavList = {
-  Home: undefined;
+  Transaction: undefined;
 };
 
 type TopUpScreenProps = {
-  navigation: BottomTabNavigationProp<TopUpScreenParamNavList, 'Home'>;
+  navigation: BottomTabNavigationProp<TopUpScreenParamNavList, 'Transaction'>;
 };
 
 function TopUpScreen({navigation}: TopUpScreenProps) {
@@ -39,7 +39,7 @@ function TopUpScreen({navigation}: TopUpScreenProps) {
       topUp({top_up_amount: !nominalFromUserInput ? currentTopUpAmount! : nominalFromUserInput!}),
     ).then(item => {
       if (item.meta.requestStatus === 'fulfilled') {
-        navigation.navigate('Home');
+        navigation.navigate('Transaction');
       }
     });
   };

@@ -1,10 +1,79 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import {Image, NativeSyntheticEvent, TextInputChangeEventData, View} from 'react-native';
 
-export default function PaymentScreen() {
+import {useNavigation} from '@react-navigation/native';
+import type {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import {Text, useTheme} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {transaction} from '@/app';
+import {AppBalanceCard, AppHeadline} from '@/components/Shared';
+import type {AppServiceParamNavList} from '@/components/Shared/AppService';
+import {AppButton, AppTextInput} from '@/components/UI';
+import {useAppDispatch, useAppSelector} from '@/hooks';
+import theme from '@/theme';
+
+import style from './style';
+
+type PaymentParamNavList = {
+  Transaction: undefined;
+};
+
+type PaymentNavigate = NativeStackNavigationProp<PaymentParamNavList, 'Transaction'>;
+
+type PaymentScreenProps = NativeStackScreenProps<AppServiceParamNavList, 'Payment'>;
+
+export default function PaymentScreen({route}: PaymentScreenProps) {
+  const {data} = route.params;
+  const navigation = useNavigation<PaymentNavigate>();
+
+  const dispatch = useAppDispatch();
+  const {balance: balanceData, isLoading} = useAppSelector(state => state.transaction);
+
+  const handlePayment = (tariff: number) => {
+    if (balanceData && balanceData.balance < tariff) {
+      console.log('balance not enough');
+    }
+
+    dispatch(
+      transaction({
+        service_code: data.service_code,
+      }),
+    ).then(result => {
+      if (result.meta.requestStatus === 'fulfilled') {
+        navigation.navigate('Transaction');
+      }
+    });
+  };
+
   return (
-    <View>
-      <Text>Payment Screen</Text>
+    <View style={style.container}>
+      <AppBalanceCard visibleAsPriority={true} />
+      <AppHeadline title="Pembayaran" variant="small" />
+      <View style={style.subContainer}>
+        <Image source={{uri: data.service_icon}} style={style.serviceImg} />
+        <Text variant="bodyLarge" style={{fontWeight: '800'}}>
+          {data.service_name}
+        </Text>
+      </View>
+      <AppTextInput
+        icon={() => <Icon name="calculator" color={theme.colors.tertiary} size={20} />}
+        onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => console.log('wk')}
+        keyboardType="numeric"
+        placeholder="masukkan nominal Top Up"
+        value={Number(data.service_tariff).toLocaleString('id-ID')}
+        editable={false}
+        style={{marginBottom: 140}}
+      />
+      <AppButton
+        mode="contained"
+        title="Bayar"
+        onPress={() => handlePayment(Number(data.service_tariff))}
+        loading={isLoading}
+      />
     </View>
   );
 }

@@ -26,7 +26,7 @@ export default function AppBalanceCard({visibleAsPriority = false}: SharedAppBal
   const convertBalance = React.useCallback(
     (value: number) => {
       if (!visible) return 'Rp. *******';
-      return `Rp. ${value}`;
+      return `Rp. ${value.toLocaleString('id-ID')}`;
     },
     [visible],
   );
@@ -47,7 +47,7 @@ export default function AppBalanceCard({visibleAsPriority = false}: SharedAppBal
         </Text>
         <Text variant="headlineLarge" style={style.cardSubContent}>
           {visibleAsPriority
-            ? `Rp. ${balanceData?.balance}`
+            ? `Rp. ${balanceData?.balance.toLocaleString('id-ID')}`
             : convertBalance(balanceData?.balance as number)}
         </Text>
         {visibleAsPriority === false ? (

@@ -12,8 +12,10 @@ import type {ServiceData} from '@/types';
 import ServiceItem from './ServiceItem';
 import style from './style';
 
-type AppServiceParamNavList = {
-  Payment: undefined;
+export type AppServiceParamNavList = {
+  Payment: {
+    data: ServiceData;
+  };
 };
 
 type SharedAppServiceProps = BottomTabNavigationProp<AppServiceParamNavList, 'Payment'>;
@@ -28,8 +30,8 @@ export default function AppService() {
     dispatch(service());
   }, []);
 
-  const handleNavigate = () => {
-    navigation.navigate('Payment');
+  const handleNavigate = (item: ServiceData) => {
+    navigation.navigate('Payment', {data: item});
   };
 
   return (
@@ -41,7 +43,7 @@ export default function AppService() {
           <ServiceItem
             serviceIcon={item.service_icon}
             serviceName={item.service_name}
-            onPress={handleNavigate}
+            onPress={() => handleNavigate(item)}
           />
         )}
         numColumns={6}

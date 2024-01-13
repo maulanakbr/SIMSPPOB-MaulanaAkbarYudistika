@@ -6,7 +6,7 @@ import {ENDPOINT_BASE_URL} from '../constants';
 
 const instance = axios.create({
   baseURL: ENDPOINT_BASE_URL,
-  timeout: 6000,
+  timeout: 60000,
 });
 
 instance.interceptors.request.use(
