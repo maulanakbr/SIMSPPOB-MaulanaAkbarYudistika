@@ -4,14 +4,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {LoginScreen, RegisterScreen} from '@/screens';
 
-export type AuthNavParamList = {
+export type AppAuthNavParamList = {
   Login: undefined;
   Register: undefined;
 };
 
-const Stack = createNativeStackNavigator<AuthNavParamList>();
+const Stack = createNativeStackNavigator<AppAuthNavParamList>();
 
-export default function AuthNav() {
+export default function AppAuthNav() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}} />

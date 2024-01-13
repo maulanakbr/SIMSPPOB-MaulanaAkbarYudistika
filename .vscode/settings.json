@@ -1,4 +1,4 @@
 {
-  "java.project.sourcePaths": ["src/screens/Login"],
+  "java.project.sourcePaths": ["src/components/Shared"],
   "java.configuration.updateBuildConfiguration": "automatic"
 }

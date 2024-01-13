@@ -11,15 +11,6 @@ export default StyleSheet.create({
     paddingVertical: theme.sizes.padding.xsmall,
     justifyContent: 'center',
   },
-  avatarContainer: {
-    position: 'relative',
-  },
-  avatar: {
-    alignSelf: 'center',
-    borderRadius: 80,
-    height: 150,
-    width: 150,
-  },
   profileFormStack: {
     gap: theme.sizes.gap.small,
   },

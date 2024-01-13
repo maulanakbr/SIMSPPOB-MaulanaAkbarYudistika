@@ -10,20 +10,23 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {colors, sizes} from '@/lib/constants';
 import {HomeScreen, ProfileScreen, TopUpScreen, TransactionScreen} from '@/screens';
 
-export type AppNavParamList = {
+export type AppTabNavParamList = {
   Home: undefined;
   TopUp: undefined;
   Transaction: undefined;
   Akun: undefined;
 };
 
-type AppNavProps = {
-  navigation?: BottomTabNavigationProp<AppNavParamList, 'Home' | 'TopUp' | 'Transaction' | 'Akun'>;
+type AppTabNavProps = {
+  navigation?: BottomTabNavigationProp<
+    AppTabNavParamList,
+    'Home' | 'TopUp' | 'Transaction' | 'Akun'
+  >;
 };
 
-const Tab = createBottomTabNavigator<AppNavParamList>();
+const Tab = createBottomTabNavigator<AppTabNavParamList>();
 
-export default function AppNav({navigation}: AppNavProps) {
+export default function AppTabNav({navigation}: AppTabNavProps) {
   return (
     <Tab.Navigator
       screenOptions={{

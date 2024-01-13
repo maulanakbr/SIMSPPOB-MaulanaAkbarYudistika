@@ -1,20 +1,13 @@
 import * as React from 'react';
-import {
-  Image,
-  Keyboard,
-  type NativeSyntheticEvent,
-  Pressable,
-  type TextInputChangeEventData,
-  View,
-} from 'react-native';
+import {type NativeSyntheticEvent, type TextInputChangeEventData, View} from 'react-native';
 
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import ImagePicker, {type ImageOrVideo, PickerErrorCode} from 'react-native-image-crop-picker';
+import ImagePicker, {type PickerErrorCode} from 'react-native-image-crop-picker';
 import {IconButton, useTheme} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Feather';
 
-import {logout, profile, profileUpdate, profileUpdateImage} from '@/app';
-import {AppButton, AppTextInput} from '@/components/UI';
+import {logout, profile, profileUpdate, profileUpdateImage, resetTopUpAmount} from '@/app';
+import {AppAvatar, AppProfileUpdateForm} from '@/components/Shared';
+import {AppButton} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import theme from '@/theme';
 import type {ProfileUpdatePayload} from '@/types';
@@ -114,53 +107,27 @@ export default function ProfileScreen({navigation}: ProfileScreenProps) {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(resetTopUpAmount(0));
   };
 
   return (
     <View style={style.container}>
-      {/* Avatar */}
-      <View style={style.avatarContainer}>
-        <Pressable onPress={isEditProfile ? handleImageUpload : undefined}>
-          <Image
-            source={
-              profileData && !profileData?.profile_image.includes('null')
-                ? {uri: profileData.profile_image}
-                : require('@/assets/Avatar.png')
-            }
-            style={style.avatar}
-          />
-          {isEditProfile && (
-            <IconButton icon="pencil" size={20} style={[style.uploadAvatarButton]} />
-          )}
-        </Pressable>
-      </View>
-      {/* ProfileFormStack */}
-      <View style={style.profileFormStack}>
-        <AppTextInput
-          defaultValue={profileData?.email}
-          icon={() => <Icon name="at-sign" color={colors.tertiary} size={20} />}
-          label="Email"
-          disabled
-        />
-        <AppTextInput
-          defaultValue={profileData?.first_name}
-          icon={() => <Icon name="user" color={colors.tertiary} size={20} />}
-          label="Nama Depan"
-          onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-            handleChangeForm(e, 'first_name')
-          }
-          disabled={isEditProfile ? false : true}
-        />
-        <AppTextInput
-          defaultValue={profileData?.last_name}
-          icon={() => <Icon name="user" color={colors.tertiary} size={20} />}
-          label="Nama Belakang"
-          onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-            handleChangeForm(e, 'last_name')
-          }
-          disabled={isEditProfile ? false : true}
-        />
-      </View>
+      <AppAvatar
+        imageSource={
+          profileData && !profileData?.profile_image.includes('null')
+            ? {uri: profileData.profile_image}
+            : require('@/assets/Avatar.png')
+        }
+        onPress={isEditProfile ? handleImageUpload : undefined}>
+        {isEditProfile && <IconButton icon="pencil" size={20} style={[style.uploadAvatarButton]} />}
+      </AppAvatar>
+      <AppProfileUpdateForm
+        defaultValue={profileData}
+        disabled={isEditProfile ? false : true}
+        onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
+          handleChangeForm(e, 'first_name')
+        }
+      />
       <AppButton
         mode="contained"
         title={isEditProfile ? 'Simpan' : 'Edit Profile'}

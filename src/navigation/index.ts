@@ -1,3 +1,3 @@
-export {default as AppNav} from './AppNav';
-export {default as AuthNav} from './AuthNav';
+export {default as AppMainNav} from './AppMainNav';
+export {default as AppAuthNav} from './AppAuthNav';
 export {default as MainContainer} from './MainContainer';

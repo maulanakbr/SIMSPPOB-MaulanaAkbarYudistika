@@ -7,11 +7,11 @@ import {profile} from '@/app';
 import {AppBalanceCard, AppBanner, AppHeadline, AppService} from '@/components/Shared';
 import {AppHeader} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
-import type {AppNavParamList} from '@/navigation/AppNav';
+import type {AppMainNavParamList} from '@/navigation/AppMainNav';
 
 import style from './style';
 
-export type HomeScreenProps = BottomTabNavigationProp<AppNavParamList, 'Home'>;
+export type HomeScreenProps = BottomTabNavigationProp<AppMainNavParamList, 'Main'>;
 
 function HomeScreen() {
   const dispatch = useAppDispatch();
@@ -24,8 +24,6 @@ function HomeScreen() {
   React.useEffect(() => {
     dispatch(profile());
   }, []);
-
-  console.log(profileData);
 
   return (
     <View style={style.container}>

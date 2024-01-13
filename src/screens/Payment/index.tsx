@@ -1,12 +1,10 @@
 import * as React from 'react';
 import {Text, View} from 'react-native';
 
-function TransactionScreen() {
+export default function PaymentScreen() {
   return (
     <View>
-      <Text>Transaction Screen</Text>
+      <Text>Payment Screen</Text>
     </View>
   );
 }
-
-export default TransactionScreen;
