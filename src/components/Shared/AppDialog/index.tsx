@@ -15,6 +15,7 @@ type SharedAppDialogProps = {
   dialogActivity?: 'Top Up' | 'Transaction';
   dialogMode?: 'confirm' | 'success' | 'failed';
   dialogTitle: [string, string];
+  dialogEvent?: 'confirm' | 'success';
   dialogVisibility: {
     status: boolean;
     callback: () => void;
@@ -27,6 +28,7 @@ export default function AppDialog({
   dialogActivity = 'Top Up',
   dialogMode = 'confirm',
   dialogTitle,
+  dialogEvent,
   dialogVisibility,
   loading,
   onPress,
@@ -37,6 +39,7 @@ export default function AppDialog({
     <React.Fragment>
       <Portal>
         <Dialog visible={dialogVisibility.status} style={style.dialog}>
+          {/* Dialog content */}
           <Dialog.Content style={[style.dialogContent]}>
             {dialogMode === 'confirm' ? (
               <AppLogo variant="Logo Only" />
@@ -49,13 +52,20 @@ export default function AppDialog({
                 <Icon name="x" size={40} color={colors.textSecondary} />
               </View>
             )}
-            <AppHeadline variant="dialog" textInput={dialogTitle} style={[{gap: 8}]} />
+            <AppHeadline
+              variant="dialog"
+              textInput={dialogTitle}
+              dialogEvents={dialogEvent}
+              style={[{gap: 8}]}
+            />
             {dialogMode === 'success' || dialogMode === 'failed' ? (
               <Text variant="bodyLarge" style={{textAlign: 'center'}}>
                 {dialogMode === 'success' ? 'berhasil' : 'gagal'}
               </Text>
             ) : null}
           </Dialog.Content>
+
+          {/* Dialog Actions */}
           <Dialog.Actions style={[style.dialogActions]}>
             {dialogMode === 'confirm' ? (
               <React.Fragment>

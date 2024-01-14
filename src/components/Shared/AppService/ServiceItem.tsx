@@ -50,7 +50,6 @@ export default function ServiceItem({
         labelStyle={{fontSize: sizes.fontSize.small}}
         compact={true}
         mode="text"
-        style={style.serviceButton}
         title={filteredServiceName(serviceName)}
         onPress={onPress}
       />

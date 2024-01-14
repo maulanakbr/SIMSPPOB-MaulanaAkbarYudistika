@@ -9,12 +9,14 @@ type SharedAppHeadlineProps = {
   title?: string;
   textInput?: [string, string];
   variant?: 'withSubtitle' | 'noSubtitle' | 'small' | 'dialog';
+  dialogEvents?: 'success' | 'confirm';
 } & TextProps;
 
 export default function AppHeadline({
   textInput,
   title,
   variant = 'noSubtitle',
+  dialogEvents,
   ...props
 }: SharedAppHeadlineProps) {
   const titleFromTextInput = textInput?.[0];
@@ -49,7 +51,11 @@ export default function AppHeadline({
       </Text>
       {variant === 'withSubtitle' || variant === 'dialog' ? (
         <Text variant="headlineSmall" style={style.headlineText}>
-          {variant === 'dialog' ? `${subtitleFromTextInput} ?` : subtitleFromTextInput}
+          {variant === 'dialog' && dialogEvents === 'confirm'
+            ? `${subtitleFromTextInput} ?`
+            : variant === 'dialog' && dialogEvents === 'success'
+              ? subtitleFromTextInput
+              : subtitleFromTextInput}
         </Text>
       ) : null}
     </View>

@@ -81,29 +81,19 @@ export default function RegisterScreen({navigation}: RegisterScreenProps) {
   }, [registerForm, setRegisterForm]);
 
   const handleRegister = () => {
-    if (typeof register !== 'undefined') {
-      dispatch(
-        register({
-          email: registerForm.email,
-          first_name: registerForm.first_name,
-          last_name: registerForm.last_name,
-          password: registerForm.password,
-        }),
-      ).then(item => {
-        if (item.meta.requestStatus === 'rejected') {
-          Toast.show({
-            type: 'error',
-            text1: 'Registrasi gagal',
-            position: 'bottom',
-          });
-        }
-
-        if (item.meta.requestStatus === 'fulfilled') {
-          Keyboard.dismiss();
-          navigation.replace('Login');
-        }
-      });
-    }
+    dispatch(
+      register({
+        email: registerForm.email,
+        first_name: registerForm.first_name,
+        last_name: registerForm.last_name,
+        password: registerForm.password,
+      }),
+    ).then(item => {
+      if (item.meta.requestStatus === 'fulfilled') {
+        Keyboard.dismiss();
+        navigation.replace('Login');
+      }
+    });
   };
 
   return (
@@ -112,9 +102,9 @@ export default function RegisterScreen({navigation}: RegisterScreenProps) {
       <AppHeadline title="Lengkapi data untuk membuat akun" />
       <AppMembershipForm
         isLoading={isLoading}
-        onChangeLogin={handleChangeForm}
+        onChangeRegister={handleChangeForm}
         onPressNavigate={() => navigation.replace('Login')}
-        onPressSubmit={handleRegister}
+        onPressSubmit={handleRegister!}
         useFor="Register"
       />
     </View>

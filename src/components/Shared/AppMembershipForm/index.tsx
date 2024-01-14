@@ -19,13 +19,13 @@ export type SharedAppMembershipFormProps = {
   isLoading: boolean;
   onPressSubmit: (e: GestureResponderEvent) => void;
   onPressNavigate: (e: GestureResponderEvent) => void;
-  onChangeLogin?: (
-    e: NativeSyntheticEvent<TextInputChangeEventData>,
-    key: keyof LoginPayload,
-  ) => void;
   onChangeRegister?: (
     e: NativeSyntheticEvent<TextInputChangeEventData>,
     key: keyof RegisterPayload,
+  ) => void;
+  onChangeLogin?: (
+    e: NativeSyntheticEvent<TextInputChangeEventData>,
+    key: keyof LoginPayload,
   ) => void;
   useFor: 'Login' | 'Register';
 };
@@ -40,11 +40,8 @@ export default function AppMembershipForm({
 }: SharedAppMembershipFormProps) {
   return (
     <View style={style.formContainer}>
-      {useFor === 'Login' ? (
-        <LoginFormStacked onChangeLogin={onChangeLogin} />
-      ) : (
-        <RegisterFormStacked onChangeRegister={onChangeRegister} />
-      )}
+      {useFor === 'Login' && <LoginFormStacked onChangeLogin={onChangeLogin} />}
+      {useFor === 'Register' && <RegisterFormStacked onChangeRegister={onChangeRegister} />}
       <AppButton
         mode="contained"
         title={useFor === 'Login' ? 'Masuk' : 'Registrasi'}

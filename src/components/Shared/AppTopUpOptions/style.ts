@@ -4,6 +4,7 @@ import theme from '@/theme';
 
 export default StyleSheet.create({
   optionsButton: {
+    alignItems: 'center',
     borderRadius: theme.sizes.borderRadius.small,
     borderColor: theme.colors.tertiary,
     height: theme.sizes.height.large,
@@ -11,7 +12,6 @@ export default StyleSheet.create({
     width: 105,
   },
   topUpList: {
-    alignItems: 'stretch',
     gap: theme.sizes.gap.medium,
   },
 });

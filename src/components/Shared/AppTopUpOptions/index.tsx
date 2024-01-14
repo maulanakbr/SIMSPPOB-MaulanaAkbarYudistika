@@ -52,7 +52,11 @@ export default function AppTopUpOptions({isDisabled}: SharedAppTopUpOptionsProps
                   ? colors.buttonBgDisabled
                   : colors.background
             }
-            labelStyle={{color: colors.textPrimary}}
+            labelStyle={
+              isSelectedButton === index
+                ? {color: colors.textSecondary}
+                : {color: colors.textPrimary}
+            }
             style={style.optionsButton}
             title={item.name}
             onPress={() => handlePressNominal(item.value, index)}
@@ -60,7 +64,6 @@ export default function AppTopUpOptions({isDisabled}: SharedAppTopUpOptionsProps
         )}
         numColumns={3}
         columnWrapperStyle={{
-          alignItems: 'center',
           justifyContent: 'space-between',
         }}
         scrollEnabled={false}

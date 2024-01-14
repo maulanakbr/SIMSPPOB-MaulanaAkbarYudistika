@@ -54,7 +54,6 @@ function HomeScreen() {
         <AppService />
         <AppBanner />
       </ScrollView>
-      <Toast />
     </View>
   );
 }

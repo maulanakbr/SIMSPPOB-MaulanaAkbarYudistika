@@ -13,5 +13,4 @@ export default StyleSheet.create({
   serviceList: {
     paddingVertical: 20,
   },
-  serviceButton: {},
 });

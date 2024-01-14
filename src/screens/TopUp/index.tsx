@@ -5,7 +5,7 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {setTopUpAmount, topUp} from '@/app';
+import {resetTopUpAmount, setTopUpAmount, topUp} from '@/app';
 import {AppBalanceCard, AppDialog, AppHeadline} from '@/components/Shared';
 import AppTopUpOptions from '@/components/Shared/AppTopUpOptions';
 import {AppButton, AppTextInput} from '@/components/UI';
@@ -31,23 +31,12 @@ export default function TopUpScreen({navigation}: TopUpScreenProps) {
     isFailed: false,
   });
 
-  const [nominalFromUserInput, setNominalFromUserInput] = React.useState<number | null>(null);
-
   const dispatch = useAppDispatch();
   const {currentTopUpAmount, isLoading} = useAppSelector(state => state.transaction);
 
-  const handleNominalChangeToScreen = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-    setNominalFromUserInput(Number(e.nativeEvent.text));
-  };
-
   const handleTopUp = () => {
-    dispatch(setTopUpAmount(0));
-
-    dispatch(
-      topUp({top_up_amount: !nominalFromUserInput ? currentTopUpAmount! : nominalFromUserInput!}),
-    ).then(item => {
+    dispatch(topUp({top_up_amount: currentTopUpAmount!})).then(item => {
       if (item.meta.requestStatus === 'fulfilled') {
-        setNominalFromUserInput(null);
         setDialogConfirmVisibility(!dialogConfirmVisibility);
         setDialogResultVisibility(prevState => ({
           ...prevState,
@@ -67,35 +56,22 @@ export default function TopUpScreen({navigation}: TopUpScreenProps) {
       />
       <AppTextInput
         icon={() => <Icon name="calculator" color={colors.tertiary} size={20} />}
-        onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-          handleNominalChangeToScreen(e)
-        }
         keyboardType="numeric"
-        value={
-          nominalFromUserInput === null || nominalFromUserInput === 0
-            ? currentTopUpAmount?.toString()
-            : nominalFromUserInput?.toString()
-        }
+        value={currentTopUpAmount?.toString()}
         placeholder="masukkan nominal Top Up"
+        editable={false}
       />
-      <AppTopUpOptions
-        isDisabled={
-          nominalFromUserInput !== null &&
-          nominalFromUserInput !== 0 &&
-          nominalFromUserInput > currentTopUpAmount!
-            ? true
-            : false
-        }
-      />
+      <AppTopUpOptions isDisabled={currentTopUpAmount === 0 ? true : false} />
       <AppButton
         mode="contained"
         title="Top Up"
-        disabled={nominalFromUserInput && currentTopUpAmount === 0 ? true : false}
+        disabled={currentTopUpAmount === 0 ? true : false}
         onPress={() => setDialogConfirmVisibility(!dialogConfirmVisibility)}
       />
       <AppDialog
         dialogMode={dialogResultVisibility.isSuccess ? 'success' : 'failed'}
         dialogTitle={['Top up sebesar', currentTopUpAmount!.toString()]}
+        dialogEvent="success"
         dialogVisibility={{
           status: dialogResultVisibility.isSuccess || dialogResultVisibility.isFailed,
           callback: () => {
@@ -104,6 +80,8 @@ export default function TopUpScreen({navigation}: TopUpScreenProps) {
                 ...prevState,
                 isSuccess: !dialogResultVisibility.isSuccess,
               }));
+
+              dispatch(resetTopUpAmount(0));
             } else {
               setDialogResultVisibility(prevState => ({
                 ...prevState,
@@ -119,6 +97,7 @@ export default function TopUpScreen({navigation}: TopUpScreenProps) {
       />
       <AppDialog
         dialogTitle={['Anda yakin untuk Top Up sebesar', currentTopUpAmount!.toString()]}
+        dialogEvent="confirm"
         dialogVisibility={{
           status: dialogConfirmVisibility,
           callback: () => {

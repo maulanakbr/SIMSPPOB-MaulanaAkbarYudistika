@@ -88,6 +88,7 @@ export default function PaymentScreen({route}: PaymentScreenProps) {
         dialogActivity="Transaction"
         dialogMode={dialogResultVisibility.isSuccess ? 'success' : 'failed'}
         dialogTitle={[`Pembayaran ${data.service_name} senilai`, `${data.service_tariff}`]}
+        dialogEvent="success"
         dialogVisibility={{
           status: dialogResultVisibility.isSuccess || dialogResultVisibility.isFailed,
           callback: () => {
@@ -112,6 +113,7 @@ export default function PaymentScreen({route}: PaymentScreenProps) {
       <AppDialog
         dialogActivity="Transaction"
         dialogTitle={[`Beli ${data.service_name} senilai`, `${data.service_tariff}`]}
+        dialogEvent="confirm"
         dialogVisibility={{
           status: dialogConfirmVisibility,
           callback: () => {

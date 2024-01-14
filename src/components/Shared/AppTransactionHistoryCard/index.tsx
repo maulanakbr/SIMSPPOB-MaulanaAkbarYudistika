@@ -32,33 +32,39 @@ export default function AppTransactionHistoryCard({
 
   return (
     <React.Fragment>
-      {transactionHistory?.map(transaction => (
-        <View key={transaction.invoice_number} style={style.cardContainer}>
-          <View style={style.cardSubContainer}>
-            <Text
-              variant="headlineSmall"
-              style={[
-                {fontWeight: '800'},
-                transaction.transaction_type === 'TOPUP'
-                  ? {color: colors.textSuccess}
-                  : {color: colors.textDanger},
-              ]}>
-              {transaction.transaction_type === 'TOPUP'
-                ? `+ Rp.${transaction.total_amount.toLocaleString('id-ID')}`
-                : `- Rp.${transaction.total_amount.toLocaleString('id-ID')}`}
-            </Text>
-            <Text variant="bodySmall">{transaction.description}</Text>
+      {transactionHistory!.length > 0 ? (
+        transactionHistory?.map(transaction => (
+          <View key={transaction.invoice_number} style={style.cardContainer}>
+            <View style={style.cardSubContainer}>
+              <Text
+                variant="headlineSmall"
+                style={[
+                  {fontWeight: '800'},
+                  transaction.transaction_type === 'TOPUP'
+                    ? {color: colors.textSuccess}
+                    : {color: colors.textDanger},
+                ]}>
+                {transaction.transaction_type === 'TOPUP'
+                  ? `+ Rp.${transaction.total_amount.toLocaleString('id-ID')}`
+                  : `- Rp.${transaction.total_amount.toLocaleString('id-ID')}`}
+              </Text>
+              <Text variant="bodySmall">{transaction.description}</Text>
+            </View>
+            <View style={style.cardSubContent}>
+              <Text variant="bodySmall" style={{color: colors.textTertiary}}>
+                {convertDateTime(transaction.created_on, 'date')}
+              </Text>
+              <Text variant="bodySmall" style={{color: colors.textTertiary}}>
+                {convertDateTime(transaction.created_on, 'time')}
+              </Text>
+            </View>
           </View>
-          <View style={style.cardSubContent}>
-            <Text variant="bodySmall" style={{color: colors.textTertiary}}>
-              {convertDateTime(transaction.created_on, 'date')}
-            </Text>
-            <Text variant="bodySmall" style={{color: colors.textTertiary}}>
-              {convertDateTime(transaction.created_on, 'time')}
-            </Text>
-          </View>
-        </View>
-      ))}
+        ))
+      ) : (
+        <Text variant="bodyLarge" style={{color: colors.textTertiary, textAlign: 'center'}}>
+          Maaf tidak ada history untuk saat ini
+        </Text>
+      )}
     </React.Fragment>
   );
 }
