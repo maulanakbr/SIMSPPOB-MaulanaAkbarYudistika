@@ -41,7 +41,10 @@ function HomeScreen() {
   return (
     <View style={style.container}>
       <ScrollView style={{flex: 1}} nestedScrollEnabled showsVerticalScrollIndicator={false}>
-        <AppHeader imgSource={profileData?.profile_image} style={{marginBottom: 20}} />
+        <AppHeader
+          imgSource={profileData?.profile_image}
+          style={{marginBottom: 20, marginTop: 20}}
+        />
         <AppHeadline
           textInput={[
             'Selamat datang,',
