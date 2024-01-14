@@ -10,7 +10,7 @@ import {Text, useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {transaction} from '@/app';
-import {AppBalanceCard, AppHeadline} from '@/components/Shared';
+import {AppBalanceCard, AppDialog, AppHeadline} from '@/components/Shared';
 import type {AppServiceParamNavList} from '@/components/Shared/AppService';
 import {AppButton, AppTextInput} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
@@ -19,14 +19,20 @@ import theme from '@/theme';
 import style from './style';
 
 type PaymentParamNavList = {
-  Transaction: undefined;
+  Home: undefined;
 };
 
-type PaymentNavigate = NativeStackNavigationProp<PaymentParamNavList, 'Transaction'>;
+type PaymentNavigate = NativeStackNavigationProp<PaymentParamNavList, 'Home'>;
 
 type PaymentScreenProps = NativeStackScreenProps<AppServiceParamNavList, 'Payment'>;
 
 export default function PaymentScreen({route}: PaymentScreenProps) {
+  const [dialogConfirmVisibility, setDialogConfirmVisibility] = React.useState<boolean>(false);
+  const [dialogResultVisibility, setDialogResultVisibility] = React.useState({
+    isSuccess: false,
+    isFailed: false,
+  });
+
   const {data} = route.params;
   const navigation = useNavigation<PaymentNavigate>();
 
@@ -44,7 +50,11 @@ export default function PaymentScreen({route}: PaymentScreenProps) {
       }),
     ).then(result => {
       if (result.meta.requestStatus === 'fulfilled') {
-        navigation.navigate('Transaction');
+        setDialogConfirmVisibility(!dialogConfirmVisibility);
+        setDialogResultVisibility(prevState => ({
+          ...prevState,
+          isSuccess: !dialogResultVisibility.isSuccess,
+        }));
       }
     });
   };
@@ -71,8 +81,49 @@ export default function PaymentScreen({route}: PaymentScreenProps) {
       <AppButton
         mode="contained"
         title="Bayar"
-        onPress={() => handlePayment(Number(data.service_tariff))}
+        onPress={() => setDialogConfirmVisibility(!dialogConfirmVisibility)}
         loading={isLoading}
+      />
+      <AppDialog
+        dialogActivity="Transaction"
+        dialogMode={dialogResultVisibility.isSuccess ? 'success' : 'failed'}
+        dialogTitle={[`Pembayaran ${data.service_name} senilai`, `${data.service_tariff}`]}
+        dialogVisibility={{
+          status: dialogResultVisibility.isSuccess || dialogResultVisibility.isFailed,
+          callback: () => {
+            if (dialogResultVisibility.isSuccess) {
+              setDialogResultVisibility(prevState => ({
+                ...prevState,
+                isSuccess: !dialogResultVisibility.isSuccess,
+              }));
+            } else {
+              setDialogResultVisibility(prevState => ({
+                ...prevState,
+                isFailed: !dialogResultVisibility.isFailed,
+              }));
+            }
+
+            navigation.navigate('Home');
+          },
+        }}
+        loading={isLoading}
+        onPress={() => handlePayment(Number(data.service_tariff))}
+      />
+      <AppDialog
+        dialogActivity="Transaction"
+        dialogTitle={[`Beli ${data.service_name} senilai`, `${data.service_tariff}`]}
+        dialogVisibility={{
+          status: dialogConfirmVisibility,
+          callback: () => {
+            setDialogConfirmVisibility(!dialogConfirmVisibility);
+            setDialogResultVisibility(prevState => ({
+              ...prevState,
+              isFailed: !dialogResultVisibility.isFailed,
+            }));
+          },
+        }}
+        loading={isLoading}
+        onPress={() => handlePayment(Number(data.service_tariff))}
       />
     </View>
   );

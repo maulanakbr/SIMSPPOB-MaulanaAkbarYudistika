@@ -10,15 +10,4 @@ export default StyleSheet.create({
     paddingVertical: theme.sizes.padding.xsmall,
     gap: theme.sizes.gap.large,
   },
-  dialog: {
-    backgroundColor: theme.colors.background,
-    borderRadius: theme.sizes.borderRadius.small,
-  },
-  dialogContent: {
-    gap: 20,
-  },
-  dialogActions: {
-    flexDirection: 'column',
-    gap: 2,
-  },
 });

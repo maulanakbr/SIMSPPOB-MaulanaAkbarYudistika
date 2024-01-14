@@ -2,11 +2,11 @@ import * as React from 'react';
 import {type NativeSyntheticEvent, type TextInputChangeEventData, View} from 'react-native';
 
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {Dialog, Portal, Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {setTopUpAmount, topUp} from '@/app';
-import {AppBalanceCard, AppHeadline, AppLogo} from '@/components/Shared';
+import {AppBalanceCard, AppDialog, AppHeadline} from '@/components/Shared';
 import AppTopUpOptions from '@/components/Shared/AppTopUpOptions';
 import {AppButton, AppTextInput} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
@@ -15,17 +15,22 @@ import theme from '@/theme';
 import style from './style';
 
 type TopUpScreenParamNavList = {
-  Transaction: undefined;
+  Home: undefined;
 };
 
 type TopUpScreenProps = {
-  navigation: BottomTabNavigationProp<TopUpScreenParamNavList, 'Transaction'>;
+  navigation: BottomTabNavigationProp<TopUpScreenParamNavList, 'Home'>;
 };
 
-function TopUpScreen({navigation}: TopUpScreenProps) {
+export default function TopUpScreen({navigation}: TopUpScreenProps) {
   const {colors, sizes} = useTheme<typeof theme>();
 
-  const [dialogVisibility, setDialogVisibility] = React.useState<boolean>(false);
+  const [dialogConfirmVisibility, setDialogConfirmVisibility] = React.useState<boolean>(false);
+  const [dialogResultVisibility, setDialogResultVisibility] = React.useState({
+    isSuccess: false,
+    isFailed: false,
+  });
+
   const [nominalFromUserInput, setNominalFromUserInput] = React.useState<number | null>(null);
 
   const dispatch = useAppDispatch();
@@ -33,10 +38,6 @@ function TopUpScreen({navigation}: TopUpScreenProps) {
 
   const handleNominalChangeToScreen = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
     setNominalFromUserInput(Number(e.nativeEvent.text));
-  };
-
-  const handleDialog = () => {
-    setDialogVisibility(!dialogVisibility);
   };
 
   const handleTopUp = () => {
@@ -47,8 +48,11 @@ function TopUpScreen({navigation}: TopUpScreenProps) {
     ).then(item => {
       if (item.meta.requestStatus === 'fulfilled') {
         setNominalFromUserInput(null);
-        handleDialog();
-        navigation.navigate('Transaction');
+        setDialogConfirmVisibility(!dialogConfirmVisibility);
+        setDialogResultVisibility(prevState => ({
+          ...prevState,
+          isSuccess: !dialogResultVisibility.isSuccess,
+        }));
       }
     });
   };
@@ -87,38 +91,47 @@ function TopUpScreen({navigation}: TopUpScreenProps) {
         mode="contained"
         title="Top Up"
         disabled={nominalFromUserInput && currentTopUpAmount === 0 ? true : false}
-        onPress={handleDialog}
+        onPress={() => setDialogConfirmVisibility(!dialogConfirmVisibility)}
       />
-      {/* Dialog */}
-      <Portal>
-        <Dialog visible={dialogVisibility} style={style.dialog}>
-          <Dialog.Content style={[style.dialogContent]}>
-            <AppLogo variant="Logo Only" />
-            <AppHeadline
-              variant="dialog"
-              textInput={['Anda yakin untuk Top Up sebesar', currentTopUpAmount!.toString()]}
-              style={[{gap: 8}]}
-            />
-          </Dialog.Content>
-          <Dialog.Actions style={[style.dialogActions]}>
-            <AppButton
-              mode="text"
-              title="Ya, lanjutkan Top Up"
-              labelStyle={{color: colors.primary, fontSize: 18}}
-              onPress={handleTopUp}
-              loading={isLoading}
-            />
-            <AppButton
-              mode="text"
-              title="Batalkan"
-              labelStyle={{color: colors.textTertiary, fontSize: 18}}
-              onPress={handleDialog}
-            />
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
+      <AppDialog
+        dialogMode={dialogResultVisibility.isSuccess ? 'success' : 'failed'}
+        dialogTitle={['Top up sebesar', currentTopUpAmount!.toString()]}
+        dialogVisibility={{
+          status: dialogResultVisibility.isSuccess || dialogResultVisibility.isFailed,
+          callback: () => {
+            if (dialogResultVisibility.isSuccess) {
+              setDialogResultVisibility(prevState => ({
+                ...prevState,
+                isSuccess: !dialogResultVisibility.isSuccess,
+              }));
+            } else {
+              setDialogResultVisibility(prevState => ({
+                ...prevState,
+                isFailed: !dialogResultVisibility.isFailed,
+              }));
+            }
+
+            navigation.navigate('Home');
+          },
+        }}
+        loading={isLoading}
+        onPress={handleTopUp}
+      />
+      <AppDialog
+        dialogTitle={['Anda yakin untuk Top Up sebesar', currentTopUpAmount!.toString()]}
+        dialogVisibility={{
+          status: dialogConfirmVisibility,
+          callback: () => {
+            setDialogConfirmVisibility(!dialogConfirmVisibility);
+            setDialogResultVisibility(prevState => ({
+              ...prevState,
+              isFailed: !dialogResultVisibility.isFailed,
+            }));
+          },
+        }}
+        loading={isLoading}
+        onPress={handleTopUp}
+      />
     </View>
   );
 }
-
-export default TopUpScreen;

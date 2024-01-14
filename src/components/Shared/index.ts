@@ -1,6 +1,7 @@
 export {default as AppAvatar} from './AppAvatar';
 export {default as AppBalanceCard} from './AppBalanceCard';
 export {default as AppBanner} from './AppBanner';
+export {default as AppDialog} from './AppDialog';
 export {default as AppHeadline} from './AppHeadline';
 export {default as AppMembershipForm} from './AppMembershipForm';
 export {default as AppProfileUpdateForm} from './AppProfileUpdateForm';

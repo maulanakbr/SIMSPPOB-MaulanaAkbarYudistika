@@ -47,12 +47,11 @@ export default function AppHeadline({
         }>
         {variant === 'withSubtitle' || variant === 'dialog' ? titleFromTextInput : title}
       </Text>
-      {variant === 'withSubtitle' ||
-        (variant === 'dialog' && (
-          <Text variant="headlineSmall" style={style.headlineText}>
-            {variant === 'dialog' ? `${subtitleFromTextInput} ?` : subtitleFromTextInput}
-          </Text>
-        ))}
+      {variant === 'withSubtitle' || variant === 'dialog' ? (
+        <Text variant="headlineSmall" style={style.headlineText}>
+          {variant === 'dialog' ? `${subtitleFromTextInput} ?` : subtitleFromTextInput}
+        </Text>
+      ) : null}
     </View>
   );
 }
