@@ -15,6 +15,7 @@ function App() {
       <PersistGate persistor={persistor}>
         <PaperProvider theme={theme}>
           <MainContainer />
+
           <Toast />
         </PaperProvider>
       </PersistGate>
