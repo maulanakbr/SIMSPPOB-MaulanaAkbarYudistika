@@ -24,6 +24,8 @@ type ProfileScreenProps = {
 
 export default function ProfileScreen({navigation}: ProfileScreenProps) {
   const {colors, sizes} = useTheme<typeof theme>();
+  const dispatch = useAppDispatch();
+  const {profile: profileData, isLoading} = useAppSelector(state => state.membership);
 
   const [isEditProfile, setIsEditProfile] = React.useState<boolean>(false);
   const [updateProfileForm, setUpdateProfileForm] = React.useState<ProfileUpdatePayload>({
@@ -31,9 +33,6 @@ export default function ProfileScreen({navigation}: ProfileScreenProps) {
     last_name: '',
   });
   const [uploadProfileImage, setUploadProfileImage] = React.useState<string | null>(null);
-
-  const dispatch = useAppDispatch();
-  const {profile: profileData, isLoading, isError} = useAppSelector(state => state.membership);
 
   React.useEffect(() => {
     dispatch(profile());
@@ -97,8 +96,8 @@ export default function ProfileScreen({navigation}: ProfileScreenProps) {
       }),
     );
 
-    dispatch(profileUpdateImage(updateImageForm as unknown as string)).then(result => {
-      if (result.meta.requestStatus === 'fulfilled') {
+    dispatch(profileUpdateImage(updateImageForm as unknown as string)).then(imageUpdateResult => {
+      if (imageUpdateResult.meta.requestStatus === 'fulfilled') {
         setIsEditProfile(!isEditProfile);
         navigation.navigate('Home');
       }
@@ -124,9 +123,7 @@ export default function ProfileScreen({navigation}: ProfileScreenProps) {
       <AppProfileUpdateForm
         defaultValue={profileData}
         disabled={isEditProfile ? false : true}
-        onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-          handleChangeForm(e, 'first_name')
-        }
+        onChange={handleChangeForm}
       />
       <AppButton
         mode="contained"

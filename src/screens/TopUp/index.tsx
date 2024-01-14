@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View} from 'react-native';
 
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -72,7 +72,7 @@ export default function TopUpScreen({navigation}: TopUpScreenProps) {
         dialogMode={dialogResultVisibility.isSuccess ? 'success' : 'failed'}
         dialogTitle={[
           'Top up sebesar',
-          currentTopUpAmount === null ? '0' : currentTopUpAmount.toString(),
+          currentTopUpAmount === null ? '0' : `Rp. ${currentTopUpAmount.toLocaleString('id-ID')}`,
         ]}
         dialogEvent="success"
         dialogVisibility={{
@@ -101,7 +101,7 @@ export default function TopUpScreen({navigation}: TopUpScreenProps) {
       <AppDialog
         dialogTitle={[
           'Anda yakin untuk Top Up sebesar',
-          currentTopUpAmount === null ? '0' : currentTopUpAmount.toString(),
+          currentTopUpAmount === null ? '0' : `Rp. ${currentTopUpAmount.toLocaleString('id-ID')}`,
         ]}
         dialogEvent="confirm"
         dialogVisibility={{

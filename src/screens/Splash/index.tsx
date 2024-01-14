@@ -30,7 +30,7 @@ export default function SplashScreen({navigation}: SplashScreenProps) {
       <AppHeadline
         variant="withSubtitle"
         textInput={['SIMS-PPOB', 'Maulana Akbar Yudistika']}
-        style={[{justifyContent: 'center', alignItems: 'center'}]}
+        style={[{justifyContent: 'center', alignItems: 'center', fontWeight: '800'}]}
       />
     </View>
   );

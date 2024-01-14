@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {GestureResponderEvent, Image, View} from 'react-native';
+import {GestureResponderEvent, Image, Pressable, View} from 'react-native';
 
-import {Text, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 
 import {AppButton} from '@/components/UI';
 import theme from '@/theme';
@@ -19,7 +19,7 @@ export default function ServiceItem({
   serviceIcon,
   onPress,
 }: SharedServiceItemCardProps) {
-  const {sizes} = useTheme<typeof theme>();
+  const {colors, sizes} = useTheme<typeof theme>();
 
   const reservedWords = ['Pajak', 'Berlangganan', 'Paket', 'Voucher', 'Qurban'];
 
@@ -45,14 +45,15 @@ export default function ServiceItem({
 
   return (
     <View style={style.serviceContainer}>
-      <Image source={{uri: serviceIcon}} style={style.serviceImg} />
-      <AppButton
-        labelStyle={{fontSize: sizes.fontSize.small}}
-        compact={true}
-        mode="text"
-        title={filteredServiceName(serviceName)}
-        onPress={onPress}
-      />
+      <Pressable onPress={onPress}>
+        <Image source={{uri: serviceIcon}} style={style.serviceImg} />
+        <AppButton
+          labelStyle={{fontSize: sizes.fontSize.small, color: colors.textPrimary}}
+          compact={true}
+          mode="text"
+          title={filteredServiceName(serviceName)}
+        />
+      </Pressable>
     </View>
   );
 }
