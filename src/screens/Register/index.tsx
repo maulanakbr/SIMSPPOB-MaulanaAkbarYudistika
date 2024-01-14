@@ -7,10 +7,13 @@ import {
 } from 'react-native';
 
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import Toast from 'react-native-toast-message';
+import type {ZodIssue} from 'zod';
 
 import {register} from '@/app';
 import {AppHeadline, AppLogo, AppMembershipForm} from '@/components/Shared';
 import {useAppDispatch, useAppSelector} from '@/hooks';
+import {RegisterPayload as RegisterValidation} from '@/lib';
 import type {RegisterPayload} from '@/types';
 
 import style from './style';
@@ -46,21 +49,39 @@ export default function RegisterScreen({navigation}: RegisterScreenProps) {
     }));
   };
 
-  const handleRegister = () => {
-    const {email, first_name, last_name, password} = registerForm;
+  const handleRegister = React.useCallback(() => {
+    dispatch(
+      register({
+        email: registerForm.email,
+        first_name: registerForm.first_name,
+        last_name: registerForm.last_name,
+        password: registerForm.password,
+      }),
+    ).then(item => {
+      const parsedBody = RegisterValidation.safeParse(registerForm);
 
-    Keyboard.dismiss();
+      if (item.meta.requestStatus === 'rejected' && !parsedBody.success) {
+        const errors = parsedBody.error;
 
-    dispatch(register({email, first_name, last_name, password})).then(item => {
-      if ((item.meta.requestStatus = 'fulfilled')) {
+        errors.issues.forEach(error => {
+          Toast.show({
+            type: 'error',
+            text1: error.message,
+            position: 'bottom',
+          });
+        });
+
+        // Toast.show({
+        //   type: 'error',
+        //   text1: 'Registrasi gagal',
+        //   position: 'bottom',
+        // });
+      } else {
+        Keyboard.dismiss();
         navigation.replace('Login');
       }
     });
-  };
-
-  const handleNavigate = () => {
-    navigation.replace('Login');
-  };
+  }, []);
 
   return (
     <View style={style.mainContainer}>
@@ -69,10 +90,11 @@ export default function RegisterScreen({navigation}: RegisterScreenProps) {
       <AppMembershipForm
         isLoading={isLoading}
         onChangeLogin={handleChangeForm}
-        onPressNavigate={handleNavigate}
+        onPressNavigate={() => navigation.replace('Login')}
         onPressSubmit={handleRegister}
         useFor="Register"
       />
+      <Toast />
     </View>
   );
 }

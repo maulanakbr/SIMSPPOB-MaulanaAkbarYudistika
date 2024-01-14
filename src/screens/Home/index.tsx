@@ -2,12 +2,14 @@ import * as React from 'react';
 import {ScrollView, View} from 'react-native';
 
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import Toast from 'react-native-toast-message';
 
 import {profile} from '@/app';
 import {AppBalanceCard, AppBanner, AppHeadline, AppService} from '@/components/Shared';
 import {AppHeader} from '@/components/UI';
 import {useAppDispatch, useAppSelector} from '@/hooks';
 import type {AppMainNavParamList} from '@/navigation/AppMainNav';
+import theme from '@/theme';
 
 import style from './style';
 
@@ -22,7 +24,18 @@ function HomeScreen() {
   };
 
   React.useEffect(() => {
-    dispatch(profile());
+    dispatch(profile()).then(result => {
+      if (result.meta.requestStatus === 'fulfilled') {
+        Toast.show({
+          type: 'success',
+          text1: 'Berhasil login',
+          text1Style: {
+            color: theme.colors.textSuccess,
+          },
+          position: 'bottom',
+        });
+      }
+    });
   }, []);
 
   return (
@@ -41,6 +54,7 @@ function HomeScreen() {
         <AppService />
         <AppBanner />
       </ScrollView>
+      <Toast />
     </View>
   );
 }
