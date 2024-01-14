@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {type NativeSyntheticEvent, type TextInputChangeEventData, View} from 'react-native';
+import {View} from 'react-native';
 
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {resetTopUpAmount, setTopUpAmount, topUp} from '@/app';
+import {resetTopUpAmount, topUp} from '@/app';
 import {AppBalanceCard, AppDialog, AppHeadline} from '@/components/Shared';
 import AppTopUpOptions from '@/components/Shared/AppTopUpOptions';
 import {AppButton, AppTextInput} from '@/components/UI';
@@ -23,7 +23,7 @@ type TopUpScreenProps = {
 };
 
 export default function TopUpScreen({navigation}: TopUpScreenProps) {
-  const {colors, sizes} = useTheme<typeof theme>();
+  const {colors} = useTheme<typeof theme>();
 
   const [dialogConfirmVisibility, setDialogConfirmVisibility] = React.useState<boolean>(false);
   const [dialogResultVisibility, setDialogResultVisibility] = React.useState({
@@ -70,7 +70,10 @@ export default function TopUpScreen({navigation}: TopUpScreenProps) {
       />
       <AppDialog
         dialogMode={dialogResultVisibility.isSuccess ? 'success' : 'failed'}
-        dialogTitle={['Top up sebesar', currentTopUpAmount!.toString()]}
+        dialogTitle={[
+          'Top up sebesar',
+          currentTopUpAmount === null ? '0' : currentTopUpAmount.toString(),
+        ]}
         dialogEvent="success"
         dialogVisibility={{
           status: dialogResultVisibility.isSuccess || dialogResultVisibility.isFailed,
@@ -96,7 +99,10 @@ export default function TopUpScreen({navigation}: TopUpScreenProps) {
         onPress={handleTopUp}
       />
       <AppDialog
-        dialogTitle={['Anda yakin untuk Top Up sebesar', currentTopUpAmount!.toString()]}
+        dialogTitle={[
+          'Anda yakin untuk Top Up sebesar',
+          currentTopUpAmount === null ? '0' : currentTopUpAmount.toString(),
+        ]}
         dialogEvent="confirm"
         dialogVisibility={{
           status: dialogConfirmVisibility,

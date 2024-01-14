@@ -21,12 +21,12 @@ type TransactionState = {
   balance: BalanceData | null;
   transaction: TransactionData | null;
   transactionHistory: TransactionHistoryData[] | undefined;
-  currentTopUpAmount: number | null;
+  currentTopUpAmount: number;
 } & BaseSliceState;
 
 const initialState: TransactionState = {
   balance: null,
-  currentTopUpAmount: null,
+  currentTopUpAmount: 0,
   transaction: null,
   transactionHistory: [],
   isError: '',

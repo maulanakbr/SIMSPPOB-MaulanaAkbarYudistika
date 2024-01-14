@@ -1,4 +1,3 @@
-import type {ImageOrVideo} from 'react-native-image-crop-picker';
 import * as z from 'zod';
 
 import {
@@ -26,7 +25,6 @@ export type BaseSliceState = {
 export type LoginPayload = z.infer<typeof LoginPayload>;
 export type RegisterPayload = z.infer<typeof RegisterPayload>;
 export type ProfileUpdatePayload = z.infer<typeof ProfileUpdatePayload>;
-// export type ProfileUpdateImagePayload = z.infer<typeof ProfileUpdateImagePayload>;
 export type ProfileUpdateImagePayload = string;
 export type TopUpPayload = z.infer<typeof TopUpPayload>;
 export type TransactionPayload = z.infer<typeof TransactionPayload>;
