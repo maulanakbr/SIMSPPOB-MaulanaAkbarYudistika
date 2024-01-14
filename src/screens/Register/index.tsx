@@ -8,7 +8,6 @@ import {
 
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import Toast from 'react-native-toast-message';
-import type {ZodIssue} from 'zod';
 
 import {register} from '@/app';
 import {AppHeadline, AppLogo, AppMembershipForm} from '@/components/Shared';
@@ -39,6 +38,28 @@ export default function RegisterScreen({navigation}: RegisterScreenProps) {
   const dispatch = useAppDispatch();
   const {isLoading} = useAppSelector(state => state.membership);
 
+  const registerCheckValidation = React.useCallback(
+    (payload: RegisterPayload) => {
+      const parsedBody = RegisterValidation && RegisterValidation.safeParse(payload);
+      const result: string[] = [];
+
+      if (parsedBody && !parsedBody.success) {
+        const errors = parsedBody.error;
+
+        errors.issues.forEach(error => {
+          result.push(error.message);
+        });
+      }
+
+      if (result.length === 0) {
+        return undefined;
+      }
+
+      return result[result.length - 1];
+    },
+    [registerForm, setRegisterForm],
+  );
+
   const handleChangeForm = (
     e: NativeSyntheticEvent<TextInputChangeEventData>,
     key: keyof RegisterPayload,
@@ -49,39 +70,41 @@ export default function RegisterScreen({navigation}: RegisterScreenProps) {
     }));
   };
 
-  const handleRegister = React.useCallback(() => {
-    dispatch(
-      register({
-        email: registerForm.email,
-        first_name: registerForm.first_name,
-        last_name: registerForm.last_name,
-        password: registerForm.password,
-      }),
-    ).then(item => {
-      const parsedBody = RegisterValidation.safeParse(registerForm);
+  React.useEffect(() => {
+    if (registerCheckValidation(registerForm) !== undefined) {
+      Toast.show({
+        type: 'error',
+        text1: registerCheckValidation(registerForm),
+        position: 'bottom',
+      });
+    }
+  }, [registerForm, setRegisterForm]);
 
-      if (item.meta.requestStatus === 'rejected' && !parsedBody.success) {
-        const errors = parsedBody.error;
-
-        errors.issues.forEach(error => {
+  const handleRegister = () => {
+    if (typeof register !== 'undefined') {
+      dispatch(
+        register({
+          email: registerForm.email,
+          first_name: registerForm.first_name,
+          last_name: registerForm.last_name,
+          password: registerForm.password,
+        }),
+      ).then(item => {
+        if (item.meta.requestStatus === 'rejected') {
           Toast.show({
             type: 'error',
-            text1: error.message,
+            text1: 'Registrasi gagal',
             position: 'bottom',
           });
-        });
+        }
 
-        // Toast.show({
-        //   type: 'error',
-        //   text1: 'Registrasi gagal',
-        //   position: 'bottom',
-        // });
-      } else {
-        Keyboard.dismiss();
-        navigation.replace('Login');
-      }
-    });
-  }, []);
+        if (item.meta.requestStatus === 'fulfilled') {
+          Keyboard.dismiss();
+          navigation.replace('Login');
+        }
+      });
+    }
+  };
 
   return (
     <View style={style.mainContainer}>
@@ -94,7 +117,6 @@ export default function RegisterScreen({navigation}: RegisterScreenProps) {
         onPressSubmit={handleRegister}
         useFor="Register"
       />
-      <Toast />
     </View>
   );
 }

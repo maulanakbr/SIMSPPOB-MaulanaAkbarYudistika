@@ -21,21 +21,21 @@ export default function RegisterFormStacked({
       <AppTextInput
         icon={() => <Icon name="at-sign" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-          onChangeRegister && onChangeRegister(e, 'email')
+          onChangeRegister && onChangeRegister!(e, 'email')
         }
         placeholder="masukkan email anda"
       />
       <AppTextInput
         icon={() => <Icon name="user" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-          onChangeRegister && onChangeRegister(e, 'first_name')
+          onChangeRegister && onChangeRegister!(e, 'first_name')
         }
         placeholder="nama depan"
       />
       <AppTextInput
         icon={() => <Icon name="user" color={colors.tertiary} size={20} />}
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-          onChangeRegister && onChangeRegister(e, 'last_name')
+          onChangeRegister && onChangeRegister!(e, 'last_name')
         }
         placeholder="name belakang"
       />
@@ -43,7 +43,7 @@ export default function RegisterFormStacked({
         icon={() => <Icon name="lock" color={colors.tertiary} size={20} />}
         placeholder="buat password"
         onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-          onChangeRegister && onChangeRegister(e, 'password')
+          onChangeRegister && onChangeRegister!(e, 'password')
         }
         secureTextEntry={true}
       />

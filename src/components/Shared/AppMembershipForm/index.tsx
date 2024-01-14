@@ -43,7 +43,7 @@ export default function AppMembershipForm({
       {useFor === 'Login' ? (
         <LoginFormStacked onChangeLogin={onChangeLogin} />
       ) : (
-        <RegisterFormStacked onChangeRegister={onChangeRegister} />
+        <RegisterFormStacked onChangeRegister={onChangeRegister!} />
       )}
       <AppButton
         mode="contained"

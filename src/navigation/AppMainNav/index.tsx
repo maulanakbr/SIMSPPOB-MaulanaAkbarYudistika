@@ -22,7 +22,7 @@ export default function AppMainNav() {
       <Stack.Screen
         name="Payment"
         component={PaymentScreen}
-        options={{headerShown: true, headerTitle: 'Pembayaran'}}
+        options={{headerShown: true, headerTitle: 'Pembayaran', headerShadowVisible: false}}
       />
     </Stack.Navigator>
   );

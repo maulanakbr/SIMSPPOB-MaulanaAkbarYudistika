@@ -11,7 +11,7 @@ import Toast from 'react-native-toast-message';
 
 import {login} from '@/app';
 import {AppHeadline, AppLogo, AppMembershipForm} from '@/components/Shared';
-import {useAppDispatch, useAppSelector} from '@/hooks';
+import {useAppDispatch, useAppSelector, useToast} from '@/hooks';
 import {LoginPayload as LoginValidation} from '@/lib';
 import type {LoginPayload} from '@/types';
 
@@ -34,7 +34,7 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
   const dispatch = useAppDispatch();
   const {isLoading, isError} = useAppSelector(state => state.membership);
 
-  const validation = React.useCallback(
+  const loginCheckValidation = React.useCallback(
     (payload: LoginPayload) => {
       const parsedBody = LoginValidation.safeParse(payload);
       const result: string[] = [];
@@ -56,16 +56,6 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
     [loginForm, setLoginForm],
   );
 
-  React.useEffect(() => {
-    if (validation(loginForm) !== undefined) {
-      Toast.show({
-        type: 'error',
-        text1: validation(loginForm),
-        position: 'bottom',
-      });
-    }
-  }, [loginForm, setLoginForm]);
-
   const handleChangeForm = (
     e: NativeSyntheticEvent<TextInputChangeEventData>,
     key: keyof LoginPayload,
@@ -76,8 +66,19 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
     }));
   };
 
+  React.useEffect(() => {
+    if (loginCheckValidation(loginForm) !== undefined) {
+      Toast.show({
+        type: 'error',
+        text1: loginCheckValidation(loginForm),
+        position: 'bottom',
+      });
+    }
+  }, [loginForm, setLoginForm]);
+
   const handleLogin = () => {
     Keyboard.dismiss();
+
     dispatch(login({email: loginForm.email, password: loginForm.password})).then(result => {
       if (result.meta.requestStatus === 'rejected') {
         Toast.show({
@@ -100,7 +101,6 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
         onPressSubmit={handleLogin}
         useFor="Login"
       />
-      <Toast />
     </View>
   );
 }

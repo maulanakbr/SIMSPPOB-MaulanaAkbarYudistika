@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import {PaperProvider} from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -14,6 +15,7 @@ function App() {
       <PersistGate persistor={persistor}>
         <PaperProvider theme={theme}>
           <MainContainer />
+          <Toast />
         </PaperProvider>
       </PersistGate>
     </Provider>

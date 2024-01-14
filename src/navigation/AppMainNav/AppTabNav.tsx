@@ -3,9 +3,7 @@ import {Text, TouchableOpacity} from 'react-native';
 
 import {BottomTabNavigationProp, createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {IconButton} from 'react-native-paper';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Icon from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Feather';
 
 import {colors, sizes} from '@/lib/constants';
 import {HomeScreen, ProfileScreen, TopUpScreen, TransactionScreen} from '@/screens';
@@ -33,13 +31,13 @@ export default function AppTabNav({navigation}: AppTabNavProps) {
         tabBarActiveTintColor: colors.secondary,
         headerShown: false,
         tabBarStyle: {
-          height: sizes.height.m,
-          paddingTop: sizes.padding.xs,
+          height: 60,
+          paddingTop: 5,
           paddingBottom: 10,
         },
         tabBarLabelStyle: {
-          fontWeight: sizes.fontWeight.l,
-          fontSize: sizes.fontSize.xs,
+          fontWeight: '500',
+          fontSize: 12,
         },
       }}>
       <Tab.Screen
@@ -47,9 +45,7 @@ export default function AppTabNav({navigation}: AppTabNavProps) {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
-          // tabBarIcon: ({color, focused}) => (
-          //   <Icon name={focused ? 'home' : 'home-outline'} color={color} size={sizes.fontSize.m} />
-          // ),
+          tabBarIcon: () => <Icon name="home" size={20} />,
         }}
       />
       <Tab.Screen
@@ -57,16 +53,22 @@ export default function AppTabNav({navigation}: AppTabNavProps) {
         component={TopUpScreen}
         options={{
           tabBarLabel: 'Top Up',
-          // tabBarIcon: ({color, focused}) => (
-          //   <MaterialIcons name={focused ? 'money' : 'money'} color={color} size={sizes.fontSize.m} />
-          // ),
+          tabBarIcon: () => <Icon name="shopping-bag" size={20} />,
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation?.goBack()}
-              style={{flexDirection: 'row', alignItems: 'center'}}>
-              <IconButton icon={'arrow-left'} />
-              <Text style={{fontSize: sizes.fontSize.s, color: colors.textPrimary}}>kembali</Text>
+              style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <IconButton icon="arrow-left" />
+              <Text
+                style={{
+                  fontSize: sizes.fontSize.s,
+                  color: colors.textPrimary,
+                  fontWeight: 'bold',
+                  letterSpacing: 0.4,
+                }}>
+                Kembali
+              </Text>
             </TouchableOpacity>
           ),
           headerTitle: 'Top Up',
@@ -84,20 +86,28 @@ export default function AppTabNav({navigation}: AppTabNavProps) {
         component={TransactionScreen}
         options={{
           tabBarLabel: 'Transaction',
-          // tabBarIcon: ({color, focused}) => <FontAwesome name={focused ? 'inbox' : 'inbox'} color={color} size={24} />,
+          tabBarIcon: () => <Icon name="credit-card" size={20} />,
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation?.goBack()}
-              style={{flexDirection: 'row', alignItems: 'center'}}>
-              <IconButton icon={'arrow-left'} />
-              <Text style={{fontSize: sizes.fontSize.s, color: colors.textPrimary}}>kembali</Text>
+              style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <IconButton icon="arrow-left" />
+              <Text
+                style={{
+                  fontSize: sizes.fontSize.s,
+                  color: colors.textPrimary,
+                  fontWeight: 'bold',
+                  letterSpacing: 0.4,
+                }}>
+                Kembali
+              </Text>
             </TouchableOpacity>
           ),
           headerTitle: 'Transaksi',
           headerShadowVisible: false,
           headerTitleStyle: {
-            fontSize: sizes.fontSize.l,
+            fontSize: sizes.fontSize.s,
             fontWeight: sizes.fontWeight.xl,
             color: colors.textPrimary,
           },
@@ -109,16 +119,22 @@ export default function AppTabNav({navigation}: AppTabNavProps) {
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Akun',
-          // tabBarIcon: ({color, focused}) => (
-          //   <MaterialIcons name={focused ? 'money' : 'money'} color={color} size={sizes.fontSize.m} />
-          // ),
+          tabBarIcon: () => <Icon name="user" size={20} />,
           headerShown: true,
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation?.goBack()}
-              style={{flexDirection: 'row', alignItems: 'center'}}>
-              <IconButton icon={'arrow-left'} />
-              <Text style={{fontSize: sizes.fontSize.s, color: colors.textPrimary}}>kembali</Text>
+              style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              <IconButton icon="arrow-left" />
+              <Text
+                style={{
+                  fontSize: sizes.fontSize.s,
+                  color: colors.textPrimary,
+                  fontWeight: 'bold',
+                  letterSpacing: 0.4,
+                }}>
+                Kembali
+              </Text>
             </TouchableOpacity>
           ),
           headerTitle: 'Akun',
